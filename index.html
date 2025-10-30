@@ -252,7 +252,7 @@
             },
             "AUG2025": { // PREVIOUS MONTH
                 reportDate: "August 2025",
-                kpis: { strategicTactical: "65%", avgCompletion: "33.58", totalReleases: "27", activeBlockers: "1" },
+                kpis: { strategicTactical: "65%", avgCompletion: "37", totalReleases: "34", activeBlockers: "1" }, // Corrected Total Releases KPI to 34
                 kpiAvgCompletionUnit: "days",
                 nextMonthHeader: "September 2025",
                 prioritiesSummary: "Finalising Projects around operational efficiencies and pipeline reporting, removal of finance cost to serve tasks due to blockers. Overrides likely moving to September.",
@@ -292,10 +292,10 @@
                     </div>
                 `,
                 strategicProgression: [
-                    { name: "Auto Pay", current: 84, previous: 84, lastYear: 17, type: "percentage", improvement: "Remained at 84% following last month." },
-                    { name: "Auto Invoice", current: 28, previous: 29, lastYear: 32, type: "percentage", improvement: "Moved from 29% last month to 28% this month (32% this month last year)." },
-                    { name: "Auto Invoice @ Completion", current: 40, previous: 41, lastYear: null, type: "percentage", improvement: "Moved from 41% last month to 40% this month." },
-                    { name: "Travel Ledger Processed Volume", current: 48, previous: 64, lastYear: null, type: "percentage", improvement: "Down to 48% from 64% in June and 71% in May due to missed statements." }
+  
+                    { name: "Auto Invoice", current: 32, previous: 28, lastYear: 28, type: "percentage", improvement: "Moved from 29% last month to 28% this month (32% this month last year)." },
+                    { name: "Auto Invoice @ Completion", current: 44, previous: 39, lastYear: null, type: "percentage", improvement: "Moved from 41% last month to 40% this month." },
+                    { name: "Travel Ledger Processed Volume", current: 65, previous: 48, lastYear: null, type: "percentage", improvement: "Down to 48% from 64% in June and 71% in May due to missed statements." }
                 ],
                 achievements: [
                     { summary: "Non-Attempt API Reporting", description: "Finalised Reporting to hep indicate why we didn't book via API, solidifying a list of actions to improve and grow online." },
@@ -313,8 +313,34 @@
                     workloadLabels: ["BAU", "Strategic Work", "Non Strategic Project", "Operational Essential"], workloadCounts: [19, 1, 6, 1],
                     requestorLabels: ["Transactional Processing", "None", "Reconciliation", "IT", "Lorna Vincent", "Compliance", "FP&A", "Nancy Emery"], requestorCounts: [12, 6, 2, 2, 3, 1, 1, 1],
                     releaseTypeLabels: ["Bug Investigation", "New Report", "Report Amendment", "Support", "Manual Report", "Insights", "Maintenance"], releaseTypeCounts: [9, 8, 5, 4, 3, 2, 1],
-                    releases: [{"Summary": "BookingAPI Not Attempt Reason Reporting", "Requestor": "IT", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Non Strategic Project", "Story Points": 9, "Request Type": "New Report", "is_key_release": true}, {"Summary": "Non GBP Payments Reporting", "Requestor": "Lorna Vincent", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 2, "Request Type": "New Report", "is_key_release": false}, {"Summary": "Understand Our Current TIG Risk Profile", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Non Strategic Project", "Story Points": 3, "Request Type": "New Report", "is_key_release": false}, {"Summary": "Rebuild Paywise Views", "Requestor": "None", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Non Strategic Project", "Story Points": 54, "Request Type": "New Report", "is_key_release": true}, {"Summary": "Finance Stateholder Updates", "Requestor": "Nancy Emery", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 6, "Request Type": "Insights", "is_key_release": false}, {"Summary": "Move Invoice Automation To Staging Schema", "Requestor": "None", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Strategic Work", "Story Points": 10, "Request Type": "Report Amendment", "is_key_release": true}, {"Summary": "Travel Ledger - FTP Upload Duplication", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 1, "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Barclaycard - TM Payment Query", "Requestor": "Lorna Vincent", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Operational Essential", "Story Points": 3, "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Daily - Load Direct Payment & RCL Groups", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 3.5, "Request Type": "Support", "is_key_release": false}, {"Summary": "Supplier Payment - Cash Flow Reporting", "Requestor": "Lorna Vincent", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 3, "Request Type": "Manual Report", "is_key_release": false}]
-                },
+                    // Full list of 34 releases for August (used by populateReleases)
+                    releases: [{"Summary": "BookingAPI Not Attempt Reason Reporting", "Requestor": "IT", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Non Strategic Project", "Story Points": 9, "Request Type": "New Report", "is_key_release": true}, {"Summary": "Non GBP Payments Reporting", "Requestor": "Lorna Vincent", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 2, "Request Type": "New Report", "is_key_release": false}, {"Summary": "Understand Our Current TIG Risk Profile", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Non Strategic Project", "Story Points": 3, "Request Type": "New Report", "is_key_release": false}, {"Summary": "Rebuild Paywise Views", "Requestor": "None", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Non Strategic Project", "Story Points": 54, "Request Type": "New Report", "is_key_release": true}, {"Summary": "Finance Stateholder Updates", "Requestor": "Nancy Emery", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 6, "Request Type": "Insights", "is_key_release": false}, {"Summary": "Move Invoice Automation To Staging Schema", "Requestor": "None", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Strategic Work", "Story Points": 10, "Request Type": "Report Amendment", "is_key_release": true}, {"Summary": "Travel Ledger - FTP Upload Duplication", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 1, "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Barclaycard - TM Payment Query", "Requestor": "Lorna Vincent", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Operational Essential", "Story Points": 3, "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Daily - Load Direct Payment & RCL Groups", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 3.5, "Request Type": "Support", "is_key_release": false}, {"Summary": "Supplier Payment - Cash Flow Reporting", "Requestor": "Lorna Vincent", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 3, "Request Type": "Manual Report", "is_key_release": false},
+                    {"Summary": "Check Invoice Automation Change Records", "Requestor": "None", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Non Strategic Project", "Story Points": 1, "Request Type": "Bug Investigation", "is_key_release": false},
+                    {"Summary": "Add SoftCash Fields to Tableau", "Requestor": "None", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Non Strategic Project", "Story Points": 1, "Request Type": "Report Amendment", "is_key_release": false},
+                    {"Summary": "INC0064768 - Insurance report not returning data for July", "Requestor": "Compliance", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Operational Essential", "Story Points": 1, "Request Type": "Bug Investigation", "is_key_release": false},
+                    {"Summary": "INC0064713 - Enett Statement Failing To Process BI", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Bug Investigation", "is_key_release": false},
+                    {"Summary": "Multi Occupancy Ambassador Costs Not Loaded", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 1, "Request Type": "Bug Investigation", "is_key_release": false},
+                    {"Summary": "Doddle Support: Paywise Auto-Pay Failure During Statement Import", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 1, "Request Type": "Bug Investigation", "is_key_release": false},
+                    {"Summary": "Paywise: Travel Ledger and eNett Reconciliation 2.0", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 2, "Request Type": "Support", "is_key_release": false},
+                    {"Summary": "Doddle Support - Payment Search Duplication", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Bug Investigation", "is_key_release": false},
+                    {"Summary": "Doddle Support - eNett statement failing at import stage", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Bug Investigation", "is_key_release": false},
+                    {"Summary": "Doddle Support - Duplicate Travel Ledger imports", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Bug Investigation", "is_key_release": false},
+                    {"Summary": "Doddle Support: eNett: Failing at Import Stage", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Bug Investigation", "is_key_release": false},
+                    {"Summary": "Replace eNetts in Payment Gold", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 6, "Request Type": "Maintenance", "is_key_release": false},
+                    {"Summary": "Commission Report for Retail and TM Bookings", "Requestor": "Reconciliation", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 1, "Request Type": "New Report", "is_key_release": false},
+                    {"Summary": "Report for Auto-Paid Transactions in Paywise where Commissions Differ", "Requestor": "Reconciliation", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 2, "Request Type": "New Report", "is_key_release": false},
+                    {"Summary": "INC0062588- Missing Identical Payments in dbo.v_Reporting for Direct & eNett Transactions", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Bug Investigation", "is_key_release": false},
+                    {"Summary": "Paywise: Travel Ledger and eNett Reconciliation", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 1, "Request Type": "Support", "is_key_release": false},
+                    {"Summary": "REQ0020387 - Add Product Type Tracking to DM Bookings At Completion", "Requestor": "None", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Report Amendment", "is_key_release": false},
+                    {"Summary": "Cost Item Expected Commission Values", "Requestor": "None", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Report Amendment", "is_key_release": false},
+                    {"Summary": "Booking Shares Reporting", "Requestor": "IT", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 1, "Request Type": "New Report", "is_key_release": false},
+                    {"Summary": "Setup AutoPayDecision Reporting Subscriptions", "Requestor": "None", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Non Strategic Project", "Story Points": 6, "Request Type": "New Report", "is_key_release": false},
+                    {"Summary": "Gross Pipeline 1st Jan - 30th June 2025", "Requestor": "Lorna Vincent", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Operational Essential", "Story Points": 8, "Request Type": "New Report", "is_key_release": false},
+                    {"Summary": "NULL Ledger Codes", "Requestor": "None", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 5, "Request Type": "Insights", "is_key_release": false},
+                    {"Summary": "Direct Payments Movements", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 1, "Request Type": "Manual Report", "is_key_release": false},
+                    {"Summary": "FP&A Monthly Report - JUL25", "Requestor": "FP&A", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 1, "Request Type": "Manual Report", "is_key_release": false},
+                    {"Summary": "Rebuild Paywise Views - Complete", "Requestor": "None", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Non Strategic Project", "Story Points": 54, "Request Type": "Report Amendment", "is_key_release": true}
+                ]},
                 priorities: [
                     {"Company Goal": "Cross-functional / Finance Specific", "Working Capital": {"name": "Finalize Pipeline Monies Reporting", "description": "Finalize Pipeline Monies Reporting: Ensure accurate reporting of pipeline monies position by finalizing dataset testing and report development.", "team": "Data & BI", "isTopFocus": true}, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null},
                     {"Company Goal": "Gain Efficiency", "Working Capital": null, "Overhead Automation": {"name": "Offline Ancillary Invoice Automation", "description": "Offline Ancillary Invoice Automation: Build a process to capture api responses for ancillaries that were booked online, ensuring we can still automatically invoice.", "team": "Finance"}, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": {"name": "Enhance Paywise Data & Performance", "description": "Enhance Paywise Data & Performance: Improve Paywise data availability, reporting view speed, and content for users.", "team": "Data & BI"}},
@@ -325,14 +351,17 @@
                     {"Company Goal": "Build Loyalty", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null}
                 ],
                 ahead: [
-                    { status: "In Progress", items: [{ key: "FCP-459", summary: "Doddle Support - Transactions Not Assigned to a Booking ID", created: "22/08/2025" }, { key: "FCP-438", summary: "Improve Opening Position Banking Fields", created: "07/08/2025" }] },
-                    { status: "Testing", items: [{ key: "FCP-449", summary: "Cost & Discount Report Query", created: "19/08/2025" }] },
-                    { status: "Prioritised", items: [{ key: "FCP-474", summary: "Build Offline Ancillary Invoice Automation Sproc", created: "27/08/2025" }, { key: "FCP-194", summary: "Relaunch On-Invoice Override Monitoring", created: "07/03/2025" }] }
+                    { status: "In Progress", items: [{"key": "FCP-459", "summary": "Doddle Support - Transactions Not Assigned to a Booking ID", "created": "22/08/2025"}, {"key": "FCP-438", "summary": "Improve Opening Position Banking Fields", "created": "07/08/2025"}, {"key": "FCP-473", "summary": "Bring dbo.TransportInvoiceInformation into datawarehouse", "created": "27/08/2025"}, {"key": "FCP-467", "summary": "Offline Invoice Automation Testing", "created": "26/08/2025"}, {"key": "FCP-429", "summary": "Doddle Support: Payment On Account Bugs", "created": "02/08/2025"}, {"key": "FCP-388", "summary": "INC0064139 - User Name Change Resulted In Lost Flexi Access", "created": "27/06/2025"}]},
+                    { status: "Testing", items: [{"key": "FCP-449", "summary": "Cost & Discount Report Query", "created": "19/08/2025"}]},
+                    { status: "In Code Review", items: [{"key": "FCP-432", "summary": "Build Pipeline Monies Tableau View", "created": "04/08/2025"}]},
+                    { status: "Prioritised", items: [{"key": "FCP-474", "summary": "Build Offline Ancillary Invoice Automation Sproc", "created": "27/08/2025"}, {"key": "FCP-194", "summary": "Relaunch On-Invoice Override Monitoring", "created": "07/03/2025"}, {"key": "FCP-357", "summary": "Create SQL Table for Pre-Paywise Bank Statements with Cashflow Allocation and Statement Number Fields", "created": "22/05/2025"}, {"key": "FCP-480", "summary": "Paywise: Travel Ledger and eNett Reconciliation 3.0", "created": "29/08/2025"}, {"key": "FCP-439", "summary": "Source Data for Missing Supplier Payments", "created": "07/08/2025"}, {"key": "FCP-478", "summary": "Transition Supplier Payment Reporting To New Source", "created": "28/08/2025"}, {"key": "FCP-379", "summary": "Multi Occupancy Price Rounding", "created": "17/06/2025"}]},
+                    {"status": "Selected for Development", "items": [{"key": "FCP-441", "summary": "Add MonthToMonth Summary of Invoice Automation", "created": "11/08/2025"}, {"key": "FCP-470", "summary": "NULL Brand Codes for Directs", "created": "26/08/2025"}, {"key": "FCP-479", "summary": "Follow up on travel ledger outbounding 2.0", "created": "28/08/2025"}, {"key": "FCP-469", "summary": "Finance Capability Assesment", "created": "26/08/2025"}]},
+                    {"status": "Planned", "items": [{"key": "FCP-475", "summary": "TIG Travel Ledger Launch", "created": "27/08/2025"}, {"key": "FCP-472", "summary": "Monthly Pipeline Extract Aug", "created": "27/08/2025"}, {"key": "FCP-414", "summary": "Native Invoice Value Vary Between DM and DWH", "created": "17/07/2025"}]}
                 ]
             },
             "JUL2025": { // JULY MONTH
                 reportDate: "July 2025",
-                kpis: { strategicTactical: "35%", avgCompletion: "22.25", totalReleases: "24", activeBlockers: "3" },
+                kpis: { strategicTactical: "19%", avgCompletion: "21", totalReleases: "31", activeBlockers: "1" },
                 kpiAvgCompletionUnit: "days",
                 nextMonthHeader: "August 2025",
                 prioritiesSummary: "These are the key objectives the team will focus on in the upcoming month to drive strategic progress and deliver value, aligned with our overarching company and finance goals. This consolidated view provides a quick understanding of our strategic focus. Hover over a priority name for more details.",
@@ -390,7 +419,7 @@
                     workloadLabels: ["BAU", "Strategic Work", "Non Strategic Project", "Operational Essential"], workloadCounts: [15, 3, 3, 3],
                     requestorLabels: ["Transactional Processing", "Reconciliation", "None", "Lorna Vincent", "Compliance", "Customer Care", "Sales"], requestorCounts: [8, 5, 4, 3, 2, 1, 1],
                     releaseTypeLabels: ["Bug Investigation", "New Report", "New Data Source", "Manual Report", "Insights", "Report Amendment", "Maintenance", "Support"], releaseTypeCounts: [6, 7, 2, 4, 2, 3, 1, 1],
-                    releases: [{"Summary": "INC0064222 - Duplicated Invoice Load", "Requestor": "Transactional Processing", "Created Date": "02/07/2025", "Resolved Date": "08/07/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "SKI TM Customer Payments", "Requestor": "Transactional Processing", "Created Date": "04/06/2025", "Resolved Date": "17/06/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "INC0063787 - Duplicated Records in DWH ETL from dbo.invoice", "Requestor": "Transactional Processing", "Created Date": "03/06/2025", "Resolved Date": "18/06/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Customer are incorrectly being charged fees on their payment plans", "Requestor": "Transactional Processing", "Created Date": "07/05/2025", "Resolved Date": "21/07/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Document Travel Ledger Auto Pay Fields", "Requestor": "None", "Created Date": "15/07/2025", "Resolved Date": "24/07/2025", "Work Type": "BAU", "Request Type": "Insights", "is_key_release": false}, {"Summary": "Create Pre-Paywise Enett Excel with Supplier Reference and Booking ID", "Requestor": "None", "Created Date": "22/05/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "Insights", "is_key_release": false}, {"Summary": "Aldo Zilli Group Query", "Requestor": "Reconciliation", "Created Date": "14/07/2025", "Resolved Date": "21/07/2025", "Work Type": "BAU", "Request Type": "Support", "is_key_release": false}, {"Summary": "Stop FTP imports of Enett data to SupplierPayment.dbo.payment_gold", "Requestor": "None", "Created Date": "25/06/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "Maintenance", "is_key_release": false}, {"Summary": "Tracey - Expected Commissions Report Rerun", "Requestor": "Reconciliation", "Created Date": "01/07/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Create Tableau Data Source for Active Invoice Values By Supplier Reference", "Requestor": "Transactional Processing", "Created Date": "01/04/2025", "Resolved Date": "24/06/2025", "Work Type": "BAU", "Request Type": "New Data Source", "is_key_release": true}, {"Summary": "Bonus Commission Report", "Requestor": "Reconciliation", "Created Date": "23/07/2025", "Resolved Date": "23/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": true}, {"Summary": "Protected Commissions report", "Requestor": "Reconciliation", "Created Date": "22/07/2025", "Resolved Date": "22/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": true}, {"Summary": "Accounts Self-Bill V2", "Requestor": "Transactional Processing", "Created Date": "23/07/2025", "Resolved Date": "24/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": true}, {"Summary": "Expected Commissions Report - Self-Service", "Requestor": "Reconciliation", "Created Date": "15/07/2025", "Resolved Date": "16/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Setup Sustainable VAT/Commission Errors Report - Invoicing", "Requestor": "Transactional Processing", "Created Date": "23/06/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Failed Tokenised Payments Report", "Requestor": "Customer Care", "Created Date": "20/05/2025", "Resolved Date": "11/06/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Create Multi-Currency Bookings Report", "Requestor": "Reconciliation", "Created Date": "04/04/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Build a report to track commission refunds from Virgin Voyages", "Requestor": "Reconciliation", "Created Date": "26/03/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "QA Update Form - Scoring Issue", "Requestor": "Sales", "Created Date": "23/06/2025", "Resolved Date": "24/06/2025", "Work Type": "BAU", "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Invoicing OT - KPI Workbook Support", "Requestor": "Transactional Processing", "Created Date": "10/06/2025", "Resolved Date": "11/06/2025", "Work Type": "BAU", "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Build Dynamic Pending Tab in INR Report with Weekly Breakdown and Stats Summary", "Requestor": "Transactional Processing", "Created Date": "16/05/2025", "Resolved Date": "24/06/2025", "Work Type": "BAU", "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Reconcile and Correct RCL Group ID: 2462058", "Requestor": "Reconciliation", "Created Date": "26/06/2025", "Resolved Date": "26/06/2025", "Work Type": "BAU", "Request Type": "Support", "is_key_release": false}, {"Summary": "Share Tracker Update with Travel Ledger", "Requestor": "None", "Created Date": "27/06/2025", "Resolved Date": "15/07/2025", "Work Type": "Non Strategic Project", "Request Type": "Insights", "is_key_release": false}, {"Summary": "Provide Cashflow Report Update - JUN 25", "Requestor": "Lorna Vincent", "Created Date": "08/07/2025", "Resolved Date": "09/07/2025", "Work Type": "Non Strategic Project", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Doddle Support Ticket - Payment Search Slowness", "Requestor": "Transactional Processing", "Created Date": "22/04/2025", "Resolved Date": "27/06/2025", "Work Type": "Operational Essential", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "CAA RCN Return - Monthly", "Requestor": "Compliance", "Created Date": "30/06/2025", "Resolved Date": "14/07/2025", "Work Type": "Operational Essential", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Quarterly Stats - LV 160725", "Requestor": "Lorna Vincent", "Created Date": "16/07/2025", "Resolved Date": "16/07/2025", "Work Type": "Strategic Work", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Board Cashflow Report - 08 Jul 25", "Requestor": "Lorna Vincent", "Created Date": "08/07/2025", "Resolved Date": "09/07/2025", "Work Type": "Strategic Work", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Estabish Tableau Data Source for Finance KPI Workbook", "Requestor": "None", "Created Date": "11/06/2025", "Resolved Date": "11/06/2025", "Work Type": "Strategic Work", "Request Type": "New Data Source", "is_key_release": true}]
+                    releases: [{"Summary": "INC0064222 - Duplicated Invoice Load", "Requestor": "Transactional Processing", "Created Date": "02/07/2025", "Resolved Date": "08/07/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "SKI TM Customer Payments", "Requestor": "Transactional Processing", "Created Date": "04/06/2025", "Resolved Date": "17/06/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "INC0063787 - Duplicated Records in DWH ETL from dbo.invoice", "Requestor": "Transactional Processing", "Created Date": "03/06/2025", "Resolved Date": "18/06/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Customer are incorrectly being charged fees on their payment plans", "Requestor": "Transactional Processing", "Created Date": "07/05/2025", "Resolved Date": "21/07/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Document Travel Ledger Auto Pay Fields", "Requestor": "None", "Created Date": "15/07/2025", "Resolved Date": "24/07/2025", "Work Type": "BAU", "Request Type": "Insights", "is_key_release": false}, {"Summary": "Create Pre-Paywise Enett Excel with Supplier Reference and Booking ID", "Requestor": "None", "Created Date": "22/05/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "Insights", "is_key_release": false}, {"Summary": "Aldo Zilli Group Query", "Requestor": "Reconciliation", "Created Date": "14/07/2025", "Resolved Date": "21/07/2025", "Work Type": "BAU", "Request Type": "Support", "is_key_release": false}, {"Summary": "Stop FTP imports of Enett data to SupplierPayment.dbo.payment_gold", "Requestor": "None", "Created Date": "25/06/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "Maintenance", "is_key_release": false}, {"Summary": "Tracey - Expected Commissions Report Rerun", "Requestor": "Reconciliation", "Created Date": "01/07/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Create Tableau Data Source for Active Invoice Values By Supplier Reference", "Requestor": "Transactional Processing", "Created Date": "01/04/2025", "Resolved Date": "24/06/2025", "Work Type": "BAU", "Request Type": "New Data Source", "is_key_release": true}, {"Summary": "Bonus Commission Report", "Requestor": "Reconciliation", "Created Date": "23/07/2025", "Resolved Date": "23/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": true}, {"Summary": "Protected Commissions report", "Requestor": "Reconciliation", "Created Date": "22/07/2025", "Resolved Date": "22/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": true}, {"Summary": "Accounts Self-Bill V2", "Requestor": "Transactional Processing", "Created Date": "23/07/2025", "Resolved Date": "24/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": true}, {"Summary": "Expected Commissions Report - Self-Service", "Requestor": "Reconciliation", "Created Date": "15/07/2025", "Resolved Date": "16/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Setup Sustainable VAT/Commission Errors Report - Invoicing", "Requestor": "Transactional Processing", "Created Date": "23/06/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Failed Tokenised Payments Report", "Requestor": "Customer Care", "Created Date": "20/05/2025", "Resolved Date": "11/06/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Create Multi-Currency Bookings Report", "Requestor": "Reconciliation", "Created Date": "04/04/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Build a report to track commission refunds from Virgin Voyages", "Requestor": "Reconciliation", "Created Date": "26/03/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "QA Update Form - Scoring Issue", "Requestor": "Sales", "Created Date": "23/06/2025", "Resolved Date": "24/06/2025", "Work Type": "BAU", "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Invoicing OT - KPI Workbook Support", "Requestor": "Transactional Processing", "Created Date": "10/06/2025", "Resolved Date": "11/06/2025", "Work Type": "BAU", "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Build Dynamic Pending Tab in INR Report with Weekly Breakdown and Stats Summary", "Requestor": "Transactional Processing", "Created Date": "16/05/2025", "Resolved Date": "24/06/2025", "Work Type": "BAU", "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Reconcile and Correct RCL Group ID: 2642058", "Requestor": "Reconciliation", "Created Date": "26/06/2025", "Resolved Date": "26/06/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Support", "is_key_release": false}, {"Summary": "Share Tracker Update with Travel Ledger", "Requestor": "None", "Created Date": "27/06/2025", "Resolved Date": "15/07/2025", "Work Type": "Non Strategic Project", "Request Type": "Insights", "is_key_release": false}, {"Summary": "Provide Cashflow Report Update - JUN 25", "Requestor": "Lorna Vincent", "Created Date": "08/07/2025", "Resolved Date": "09/07/2025", "Work Type": "Non Strategic Project", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Doddle Support Ticket - Payment Search Slowness", "Requestor": "Transactional Processing", "Created Date": "22/04/2025", "Resolved Date": "27/06/2025", "Work Type": "Operational Essential", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "CAA RCN Return - Monthly", "Requestor": "Compliance", "Created Date": "30/06/2025", "Resolved Date": "14/07/2025", "Work Type": "Operational Essential", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Quarterly Stats - LV 160725", "Requestor": "Lorna Vincent", "Created Date": "16/07/2025", "Resolved Date": "16/07/2025", "Work Type": "Strategic Work", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Board Cashflow Report - 08 Jul 25", "Requestor": "Lorna Vincent", "Created Date": "08/07/2025", "Resolved Date": "09/07/2025", "Work Type": "Strategic Work", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Estabish Tableau Data Source for Finance KPI Workbook", "Requestor": "None", "Created Date": "11/06/2025", "Resolved Date": "11/06/2025", "Work Type": "Strategic Work", "Request Type": "New Data Source", "is_key_release": true}]
                 },
                 priorities: [
                     { "Company Goal": "Cross-functional / Finance Specific", "Working Capital": { "name": "Pipeline Monies Reporting", "description": "Finalize Pipeline Monies Reporting: Ensure accurate reporting of pipeline monies position by finalizing dataset testing and report development.", "team": "Data & BI", "isTopFocus": true }, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null },
@@ -414,7 +443,6 @@
         let releaseTypeChartInstance = null;
         
         // --- RENDERING FUNCTIONS ---
-        // Helper to destroy old chart instances
         function destroyChartInstances() {
             if (workloadChartInstance) workloadChartInstance.destroy();
             if (requestorsChartInstance) requestorsChartInstance.destroy();
@@ -484,14 +512,16 @@
             if (data.ahead) {
                 lookAheadSection.classList.remove('hidden');
                 lookAheadContent.innerHTML = data.ahead.map(group => `
-                    <li>
-                        <h4 class="font-semibold text-lg underline">${group.status}</h4>
-                        <ul class="list-disc list-inside ml-4 space-y-1">
-                            ${group.items.map(item => `
-                                <li><strong>${item.key}</strong> - ${item.summary} (Created: ${item.created})</li>
-                            `).join('')}
-                        </ul>
-                    </li>
+                    <ul class="space-y-4 text-slate-700">
+                        <li>
+                            <h4 class="font-semibold text-lg underline">${group.status}</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-1">
+                                ${group.items.map(item => `
+                                    <li><strong>${item.key}</strong> - ${item.summary} (Created: ${item.created})</li>
+                                `).join('')}
+                            </ul>
+                        </li>
+                    </ul>
                 `).join('');
             } else {
                 lookAheadSection.classList.add('hidden');
@@ -499,10 +529,12 @@
         }
 
         function populateStrategicProgression(data) {
+            const strategySection = document.getElementById('strategy');
             const listContainer = document.getElementById('strategic-progression-list');
             
             if (!data.strategicProgression) {
-                // Scenario for SEP2025: Strategic Progression is OFFLINE
+                // Scenario: Strategic Progression is OFFLINE (SEP2025)
+                strategySection.classList.remove('hidden'); 
                 listContainer.innerHTML = `
                     <div class="offline-marker">
                         <strong>Strategic Progression is an OFFLINE Report (Data not available in this format)</strong>
@@ -510,8 +542,9 @@
                 `;
                 return;
             }
-
-            // Scenario for JUL2025/AUG2025: Strategic Progression is AVAILABLE
+            
+            // Scenario: Strategic Progression is AVAILABLE (JUL2025/AUG2025)
+            strategySection.classList.remove('hidden');
             listContainer.innerHTML = data.strategicProgression.map(item => {
                 const getTrendData = (current, compare) => {
                     if (current === null || compare === null) return { icon: '━', color: 'text-slate-500', diff: 'N/A' };
@@ -635,7 +668,8 @@
                     const li = document.createElement('li');
                     li.className = 'release-item';
                     const star = ticket.is_key_release ? '<span class="key-release-star">⭐</span>' : '';
-                    const description = `Requestor: ${ticket.Requestor} | Created: ${ticket['Created Date']} | Resolved: ${ticket['Resolved Date']} | Work Type: ${ticket['Work Type']} | SP: ${ticket['Story Points'] !== undefined ? ticket['Story Points'] : '--'}`; // Handle missing SP
+                    // Use optional chaining for safer access, though all fields seem present now
+                    const description = `Requestor: ${ticket.Requestor ?? 'N/A'} | Created: ${ticket['Created Date'] ?? 'N/A'} | Resolved: ${ticket['Resolved Date'] ?? 'N/A'} | Work Type: ${ticket['Work Type'] ?? 'N/A'} | SP: ${ticket['Story Points'] ?? '--'}`;
                     li.innerHTML = `${star}${description}<strong>${ticket.Summary}</strong>`;
                     ul.appendChild(li);
                 });
@@ -697,10 +731,8 @@
         }
         
         function attachTooltipListeners() {
-            // Re-select tooltip elements after the DOM has been modified
             const customTooltip = document.getElementById('custom-tooltip');
             
-            // Remove existing listeners first to prevent duplicates
             document.querySelectorAll('.priority-bubble').forEach(bubble => {
                 bubble.removeEventListener('mouseenter', bubble._mouseEnterHandler);
                 bubble.removeEventListener('mouseleave', bubble._mouseLeaveHandler);
@@ -710,7 +742,7 @@
                 bubble._mouseEnterHandler = (e) => {
                     const content = e.target.dataset.tooltipContent;
                     if (content) {
-                        clearTimeout(bubble.tooltipTimeout); // Clear timeout associated with this bubble
+                        clearTimeout(bubble.tooltipTimeout); 
                         bubble.tooltipTimeout = setTimeout(() => {
                             customTooltip.innerHTML = content;
                             customTooltip.classList.add('visible'); customTooltip.classList.remove('hidden');
@@ -752,11 +784,9 @@
             const contentSections = mainContent.querySelectorAll('.content-section');
             
             const navigateTo = (hash) => {
-                // Ensure all tabs are non-active and all sections are hidden initially
                 navLinks.forEach(link => link.classList.remove('active'));
                 contentSections.forEach(section => section.classList.add('hidden'));
 
-                // Set active link and visible section based on hash
                 const targetId = hash.substring(1);
                 const targetLink = navContainer.querySelector(`[href="${hash}"]`);
                 const targetSection = document.getElementById(targetId);
@@ -781,29 +811,19 @@
             return navigateTo;
         }
 
-        // Master function to render the entire dashboard for the given month
         function renderDashboard(monthKey, initialHash) {
             const data = ALL_MONTHLY_DATA[monthKey];
             if (!data) return console.error("Data for month " + monthKey + " not found.");
 
-            // 1. Update the Navigation Bar structure and get the new navigateTo function
             const navigateTo = setupNavigation(data);
             
-            // 2. Update static elements (KPIs, Lists, Look Ahead Content)
             updateKPIs(data);
             populateLists(data);
-            
-            // 3. Update the Strategic Progression content (Handles visibility/data automatically)
             populateStrategicProgression(data);
-            
-            // 4. Update dynamic sections (Releases, Priorities)
             populateReleases(data);
             populatePriorities(data);
-            
-            // 5. Update charts (Requires Chart.js to be loaded)
             updateCharts(data.jira);
 
-            // 6. Navigate to the correct starting hash (or stay on the previously active one)
             const currentHash = initialHash || window.location.hash || '#overview';
             navigateTo(currentHash);
         }
@@ -811,7 +831,6 @@
         // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', function () {
             
-            // 1. Populate the month selector dropdown
             const selector = document.getElementById('month-selector');
             MONTH_ORDER.forEach(month => {
                 const option = document.createElement('option');
@@ -820,18 +839,14 @@
                 selector.appendChild(option);
             });
 
-            // 2. Set default month and render the initial view
             selector.value = DEFAULT_MONTH;
             const initialHash = window.location.hash || '#overview';
             renderDashboard(DEFAULT_MONTH, initialHash);
 
-            // 3. Add event listener for month change
             selector.addEventListener('change', function() {
-                // Save the currently visible section hash
                 const currentActiveLink = document.querySelector('#main-nav-container .nav-link.active');
                 const activeHash = currentActiveLink ? currentActiveLink.hash : '#overview';
 
-                // Re-render dashboard with new month's data, forcing navigation to the last active hash
                 renderDashboard(selector.value, activeHash);
             });
         });
