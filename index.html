@@ -4,141 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finance Product & Analytics Team Dashboard</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Base Styling */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
         }
         .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 350px;
+            position: relative; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto;
+            height: 300px; max-height: 350px;
         }
         @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-                max-height: 400px;
-            }
+            .chart-container { height: 350px; max-height: 400px; }
         }
-        .nav-link {
-            transition: all 0.2s ease-in-out;
-        }
-        .nav-link.active {
-            color: #d97706;
-            border-bottom-color: #d97706;
-        }
-        .kpi-card {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-        .kpi-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        }
-        .key-release-card {
-            border: 2px solid #fbbf24;
-        }
+        .nav-link { transition: all 0.2s ease-in-out; }
+        .nav-link.active { color: #d97706; border-bottom-color: #d97706; }
+        .kpi-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
         .priority-table th {
-            padding: 12px 16px;
-            background-color: #f1f5f9;
-            color: #1e293b;
-            font-weight: 600;
-            text-align: left;
-            border-bottom: 2px solid #e2e8f0;
-            border-right: 1px solid #e2e8f0;
+            padding: 12px 16px; background-color: #f1f5f9; color: #1e293b; font-weight: 600;
+            text-align: left; border-bottom: 2px solid #e2e8f0; border-right: 1px solid #e2e8f0; white-space: nowrap;
         }
-        .priority-table th:last-child {
-            border-right: none;
-        }
-        .priority-table td {
-            padding: 8px 16px;
-            border-bottom: 1px solid #e2e8f0;
-            border-right: 1px solid #e2e8f0;
-            vertical-align: top;
-        }
-        .priority-table td:last-child {
-            border-right: none;
-        }
+        .priority-table td { padding: 8px 16px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; vertical-align: top; }
+        .priority-table th:last-child, .priority-table td:last-child { border-right: none; }
         .priority-bubble {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            margin: 2px;
-            cursor: help;
-            position: relative;
-            background-color: #f1f5f9;
-            color: #475569;
-            border: 1px solid #e2e8f0;
+            display: inline-block; padding: 4px 8px; border-radius: 9999px; font-size: 0.75rem; font-weight: 500;
+            margin: 2px; cursor: help; position: relative; background-color: #f1f5f9; color: #475569; border: 1px solid #e2e8f0;
         }
+        /* Team Colors */
         .team-data-bi { background-color: #bfdbfe; color: #1e40af; border-color: #60a5fa; }
         .team-booking-fulfilment { background-color: #fed7aa; color: #c2410c; border-color: #fb923c; }
         .team-finance { background-color: #dcfce7; color: #16a34a; border-color: #4ade80; }
-        .priority-top-focus {
-            background-color: #fef3c7;
-            border: 2px solid #f59e0b;
-            color: #b45309;
-            font-weight: 600;
-        }
+        .team-crm { background-color: #e5e5e5; color: #475569; border-color: #94a3b8; }
+        .priority-top-focus { background-color: #fef3c7; border: 2px solid #f59e0b; color: #b45309; font-weight: 600; }
+        /* Tooltip */
         #custom-tooltip {
-            position: absolute;
-            background-color: #1e293b;
-            color: #f8fafc;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 0.875rem;
-            max-width: 300px;
-            z-index: 50;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s ease-in-out;
-            transform: translateY(10px);
+            position: absolute; background-color: #1e293b; color: #f8fafc; padding: 10px 15px;
+            border-radius: 8px; font-size: 0.875rem; max-width: 300px; z-index: 50;
+            pointer-events: none; opacity: 0; transition: opacity 0.2s ease-in-out; transform: translateY(10px);
         }
-        #custom-tooltip.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        #custom-tooltip.visible { opacity: 1; transform: translateY(0); }
+        /* Releases Section */
         .release-type-group {
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            border: 1px solid #e2e8f0;
+            background-color: #ffffff; padding: 1.5rem; border-radius: 0.5rem;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); border: 1px solid #e2e8f0;
         }
         .release-type-group h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid #f1f5f9;
-            padding-bottom: 0.5rem;
+            font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;
+            border-bottom: 1px solid #f1f5f9; padding-bottom: 0.5rem;
         }
         .release-item {
-            font-size: 0.875rem;
-            color: #475569;
-            line-height: 1.5;
-            margin-bottom: 0.5rem;
+            font-size: 0.875rem; color: #475569; line-height: 1.5; margin-bottom: 1.5rem;
+            border-left: 3px solid #f59e0b; padding-left: 10px;
         }
-        .release-item span {
-            font-weight: 500;
-            color: #334155;
+        .release-item strong { font-weight: 700; color: #1e293b; display: block; margin-top: 0.25rem; }
+        .key-release-star { color: #fbbf24; margin-right: 0.25rem; font-size: 1rem; vertical-align: top; line-height: 1.5; }
+        .offline-marker {
+            padding: 40px; background-color: #fee2e2; border: 4px solid #ef4444; 
+            border-radius: 0.5rem; text-align: center; font-size: 2rem;
+            font-weight: 800; color: #b91c1c; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-        .release-item strong {
-            font-weight: 700;
-            color: #1e293b;
-        }
-        .key-release-star {
-            color: #fbbf24;
-            margin-right: 0.25rem;
+        /* Strategic Progression Specific Styling */
+        .progression-bar {
+            background-color: #f59e0b; 
+            height: 4px;
+            border-radius: 9999px;
         }
     </style>
 </head>
@@ -148,19 +81,17 @@
         
         <header class="mb-8">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Finance Product & Analytics Update</h1>
-            <p class="text-slate-500 mt-1">Reporting Period: For the month of August 2025</p>
+            <p class="text-slate-500 mt-1" id="report-period">Reporting Period: For the month of September 2025</p>
         </header>
 
-        <nav class="bg-white rounded-lg shadow-sm mb-8 sticky top-4 z-10">
-            <ul class="flex flex-wrap border-b border-slate-200">
-                <li><a href="#overview" class="nav-link active text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Overview</a></li>
-                <li><a href="#workload" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Workload Deep Dive</a></li>
-                <li><a href="#strategy" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Strategic Progression</a></li>
-                <li><a href="#releases" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Product Releases</a></li>
-                <li><a href="#priorities" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Priorities</a></li>
-                <li><a href="#ahead" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">A Look Ahead</a></li>
-            </ul>
-        </nav>
+        <div class="mb-6 flex items-center justify-between">
+            <label for="month-selector" class="text-lg font-semibold text-slate-700">Select Month:</label>
+            <select id="month-selector" class="bg-white border border-slate-300 rounded-lg p-2 shadow-sm text-slate-800">
+                </select>
+        </div>
+
+        <nav class="bg-white rounded-lg shadow-sm mb-8 sticky top-4 z-10" id="main-nav-container">
+            </nav>
 
         <main id="content">
             
@@ -170,95 +101,19 @@
                     <p class="text-slate-600 max-w-3xl">This section provides a high-level summary of the team's performance, key achievements, and most pressing challenges from the last month. Use these metrics to get a quick understanding of our operational health and strategic momentum before diving into the detailed sections.</p>
                 </div>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="kpi-card bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                        <h3 class="text-sm font-medium text-slate-500">Strategic & Tactical Work</h3>
-                        <p class="text-4xl font-bold text-amber-600 mt-2" id="kpi-strategic-tactical">65%</p>
-                        <p class="text-xs text-slate-400 mt-1">of all work</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="kpi-container">
                     </div>
-                    <div class="kpi-card bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                        <h3 class="text-sm font-medium text-slate-500">Avg. Completion Time</h3>
-                        <p class="text-4xl font-bold text-slate-800 mt-2" id="kpi-avg-completion">33.58 <span class="text-2xl">days</span></p>
-                        <p class="text-xs text-slate-400 mt-1">for all completed work</p>
-                    </div>
-                    <div class="kpi-card bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                        <h3 class="text-sm font-medium text-slate-500">Total Releases</h3>
-                        <p class="text-4xl font-bold text-slate-800 mt-2" id="kpi-total-releases">27</p>
-                        <p class="text-xs text-slate-400 mt-1">total releases</p>
-                    </div>
-                    <div class="kpi-card bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                        <h3 class="text-sm font-medium text-slate-500">Active Blockers</h3>
-                        <p class="text-4xl font-bold text-red-600 mt-2">1</p>
-                        <p class="text-xs text-slate-400 mt-1">requiring stakeholder action</p>
-                    </div>
-                </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
                         <h3 class="text-xl font-bold text-slate-900 mb-4">Key Achievements This Month</h3>
                         <ul class="space-y-3" id="key-achievements-list">
-                            <li class="flex items-start">
-                                <span class="text-green-500 mr-3 mt-1">✔</span>
-                                <div>
-                                    <h4 class="font-semibold">Non-Attempt API Reporting</h4>
-                                    <p class="text-slate-600 text-sm">Finalised Reporting to hep indicate why we didn't book via API, solidifying a list of actions to improve and grow online.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-green-500 mr-3 mt-1">✔</span>
-                                <div>
-                                    <h4 class="font-semibold">Agreed TIG Travel Ledger Start Date</h4>
-                                    <p class="text-slate-600 text-sm">Agreed with TIG to start processing supplier payments on Travel Ledger rather than daily direct debit.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-green-500 mr-3 mt-1">✔</span>
-                                <div>
-                                    <h4 class="font-semibold">Invoice Automation Process Adapted for Late Bookings</h4>
-                                    <p class="text-slate-600 text-sm">Deployment from late July was succesful towards the end of August, seen a positive uptake in invoice automation %</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-green-500 mr-3 mt-1">✔</span>
-                                <div>
-                                    <h4 class="font-semibold">Paywise Reporting Uphaul</h4>
-                                    <p class="text-slate-600 text-sm">Previously unavailable content has been made available, Supplier Payment Reporting Views have been cleansed and rebuilt and will be replacing existing sources in early September. (Eliminating previously prohibitive performance issues)</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-green-500 mr-3 mt-1">✔</span>
-                                <div>
-                                    <h4 class="font-semibold">Pipeline Reporting</h4>
-                                    <p class="text-slate-600 text-sm">Performance issues have been resolved, V1 Reporting has now been built as we're now capable of capturing pipeline position at month-end.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-green-500 mr-3 mt-1">✔</span>
-                                <div>
-                                    <h4 class="font-semibold">Offline Ancillary invoice Automation</h4>
-                                    <p class="text-slate-600 text-sm">Succesfull testing cycle of offline ancillary invoice automation, anticipating a deploy early September.</p>
-                                </div>
-                            </li>
-                        </ul>
+                            </ul>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
                         <h3 class="text-xl font-bold text-slate-900 mb-4">Urgent: Blockers & Decisions (Current)</h3>
                            <ul class="space-y-3" id="blockers-decisions-list">
-                                <li class="flex items-start">
-                                    <span class="text-blue-500 mr-3 mt-1">❓</span>
-                                    <div>
-                                        <h4 class="font-semibold">Decision Required: Align Finance Goals with Company Strategy</h4>
-                                        <p class="text-slate-600 text-sm">A clear definition of finance-specific goals is needed to ensure alignment with overall company strategy for Q4 and 2026, enabling the finalization and agreement of a development roadmap with IT. This decision requires input from Lorna Vincent and Antony Fulcher.</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-red-500 mr-3 mt-1">❗</span>
-                                    <div>
-                                        <h4 class="font-semibold">Action Required: Clarity around remaining pipeline reporting requirements now that we're capable from a performance perspective.</h4>
-                                        <p class="text-slate-600 text-sm">Clarity around remaining pipeline reporting requirements now that we're capable from a performance perspective.</p>
-                                    </div>
-                                </li>
-                            </ul>
+                                </ul>
                     </div>
                 </div>
             </section>
@@ -267,26 +122,20 @@
                 <div>
                     <h2 class="text-2xl font-bold text-slate-900 mb-2">Workload Deep Dive (Monthly Analysis)</h2>
                     <p class="text-slate-600 max-w-3xl">This section analyzes the team's effort allocation across completed work in the last month. The charts below illustrate how our time is divided between strategic initiatives and operational support, which business areas are our primary partners, and the types of product releases we are delivering. <br>
-                    <span class="font-semibold">Total Tickets Closed This Month: <span class="text-amber-600" id="total-tickets-closed">27</span></span></p>
+                    <span class="font-semibold">Total Tickets Closed This Month: <span class="text-amber-600" id="total-tickets-closed">--</span></span></p>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                     <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
                         <h3 class="text-xl font-bold text-slate-900 mb-4 text-center">Workload Breakdown by Type</h3>
-                        <div class="chart-container">
-                            <canvas id="workloadChart"></canvas>
-                        </div>
+                        <div class="chart-container"> <canvas id="workloadChart"></canvas> </div>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
                         <h3 class="text-xl font-bold text-slate-900 mb-4 text-center">Primary Requestors by Volume</h3>
-                        <div class="chart-container h-[400px]">
-                            <canvas id="requestorsChart"></canvas>
-                        </div>
+                        <div class="chart-container h-[400px]"> <canvas id="requestorsChart"></canvas> </div>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 col-span-1 lg:col-span-2">
                         <h3 class="text-xl font-bold text-slate-900 mb-4 text-center">Product Release Types</h3>
-                        <div class="chart-container">
-                            <canvas id="releaseTypeChart"></canvas>
-                        </div>
+                        <div class="chart-container"> <canvas id="releaseTypeChart"></canvas> </div>
                     </div>
                 </div>
             </section>
@@ -299,907 +148,482 @@
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
                     <h3 class="text-xl font-bold text-slate-900 mb-6">Strategic Outcome Progression</h3>
                     <div class="space-y-6" id="strategic-progression-list">
-                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
-                            <div class="flex justify-between items-baseline mb-1">
-                                <span class="text-base font-medium text-slate-700">Auto Invoice</span>
-                                <span class="text-lg font-bold text-slate-900 current-value-display">34%</span>
-                            </div>
-                            <div class="w-full bg-slate-200 rounded-full h-4">
-                                <div class="bg-amber-500 h-4 rounded-full" style="width: 34%"></div>
-                            </div>
-                            <p class="text-sm text-slate-500 mt-2">
-                                <span class="trend-comparison" data-compare-to="previous" data-label="vs. Last Month">vs. Last Month: <span class="font-bold text-green-600">▲ 4%</span></span> | 
-                                <span class="trend-comparison" data-compare-to="last-year" data-label="vs. Last Year">vs. Last Year: <span class="font-bold text-green-600">▲ 4%</span></span>
-                                <br>Tangible Improvement: None provided.
-                            </p>
                         </div>
-                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
-                            <div class="flex justify-between items-baseline mb-1">
-                                <span class="text-base font-medium text-slate-700">Auto Invoice @ Completion</span>
-                                <span class="text-lg font-bold text-slate-900 current-value-display">46%</span>
-                            </div>
-                            <div class="w-full bg-slate-200 rounded-full h-4">
-                                <div class="bg-amber-500 h-4 rounded-full" style="width: 46%"></div>
-                            </div>
-                            <p class="text-sm text-slate-500 mt-2">
-                                <span class="trend-comparison" data-compare-to="previous" data-label="vs. Last Month">vs. Last Month: <span class="font-bold text-green-600">▲ 6%</span></span> | 
-                                <span class="trend-comparison" data-compare-to="last-year" data-label="vs. Last Year">vs. Last Year: <span class="font-bold text-slate-500">━ N/A</span></span>
-                                <br>Tangible Improvement: None provided.
-                            </p>
-                        </div>
-                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
-                            <div class="flex justify-between items-baseline mb-1">
-                                <span class="text-base font-medium text-slate-700">Travel Ledger Processed Volume</span>
-                                <span class="text-lg font-bold text-slate-900 current-value-display">65%</span>
-                            </div>
-                            <div class="w-full bg-slate-200 rounded-full h-4">
-                                <div class="bg-amber-500 h-4 rounded-full" style="width: 65%"></div>
-                            </div>
-                            <p class="text-sm text-slate-500 mt-2">
-                                <span class="trend-comparison" data-compare-to="previous" data-label="vs. Last Month">vs. Last Month: <span class="font-bold text-green-600">▲ 17%</span></span> | 
-                                <span class="trend-comparison" data-compare-to="last-year" data-label="vs. Last Year">vs. Last Year: <span class="font-bold text-slate-500">━ N/A</span></span>
-                                <br>Tangible Improvement: Back up to 65% after a dip to 48% due to processing errors. 17% of Statements via Travel Ledger - a historical high</p>
-                        </div>
-                    </div>
                 </div>
             </section>
 
             <section id="releases" class="content-section space-y-8 hidden">
                 <div>
-                    <h2 class="text-2xl font-bold text-slate-900 mb-2">Recent Product Releases (August 2025)</h2>
-                    <p class="text-slate-600 max-w-3xl">This section details all significant reports, dashboards, and system amendments deployed during August, grouped by the type of request. Key releases are marked with a star (⭐).</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-2" id="releases-header">Recent Product Releases</h2>
+                    <p class="text-slate-600 max-w-3xl">This section details all significant reports, dashboards, and system amendments deployed during the reporting period, grouped by the type of request. Key releases are marked with a star (⭐).</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="release-list-container">
-                    <div class="release-type-group p-4">
-                        <h3>New Report</h3>
-                        <ul>
-                            <li class="release-item">
-                                ⭐<strong>BookingAPI Not Attempt Reason Reporting</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: IT | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: Non Strategic Project | Story Points: 9</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Non GBP Payments Reporting</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Lorna Vincent | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 2</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Understand Our Current TIG Risk Profile</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: Non Strategic Project | Story Points: 3</span>
-                            </li>
-                             <li class="release-item">
-                                <strong>Commission Report for Retail and TM Bookings</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Reconciliation | Created: 29/08/2025 | Resolved: N/A | Work Type: BAU | Story Points: 1</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Report for Auto-Paid Transactions in Paywise where Commissions Differ</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Reconciliation | Created: 29/08/2025 | Resolved: N/A | Work Type: BAU | Story Points: 2</span>
-                            </li>
-                            <li class="release-item">
-                                ⭐<strong>Rebuild Paywise Views</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: None | Created: 29/08/2025 | Resolved: N/A | Work Type: Non Strategic Project | Story Points: 54</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Booking Shares Reporting</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: IT | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 1</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Setup AutoPayDecision Reporting Subscriptions</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: None | Created: 29/08/2025 | Resolved: N/A | Work Type: Non Strategic Project | Story Points: 6</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Gross Pipeline 1st Jan - 30th June 2025</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Lorna Vincent | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: Operational Essential | Story Points: 8</span>
-                            </li>
-                        </ul>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:col-span-3 gap-6" id="release-list-container">
                     </div>
-                    <div class="release-type-group p-4">
-                        <h3>Insights</h3>
-                        <ul>
-                            <li class="release-item">
-                                <strong>NULL Ledger Codes</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: None | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 5</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Finance Stateholder Updates</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Nancy Emery | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 6</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="release-type-group p-4">
-                        <h3>Support</h3>
-                        <ul>
-                            <li class="release-item">
-                                <strong>Paywise: Travel Ledger and eNett Reconciliation 2.0</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 2</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Paywise: Travel Ledger and eNett Reconciliation</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 1</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Daily - Load Direct Payment & RCL Groups</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 3.5</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="release-type-group p-4">
-                        <h3>Bug Investigation</h3>
-                        <ul>
-                            <li class="release-item">
-                                <strong>Doddle Support - Payment Search Duplication</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 0</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Doddle Support - eNett statement failing at import stage</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 0</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Doddle Support - Duplicate Travel Ledger imports</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 0</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Doddle Support: eNett: Failing at Import Stage</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 0</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Multi Occupancy Ambassador Costs Not Loaded</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 1</span>
-                            </li>
-                             <li class="release-item">
-                                <strong>Check Invoice Automation Change Records</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: None | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: Non Strategic Project | Story Points: 1</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>INC0062588- Missing Identical Payments in dbo.v_Reporting for Direct & eNett Transactions</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 0</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Travel Ledger - FTP Upload Duplication</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 1</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>INC0064768 - Insurance report not returning data for July</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Compliance | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: Operational Essential | Story Points: 1</span>
-                            </li>
-                             <li class="release-item">
-                                <strong>INC0064713 - Enett Statement Failing To Process BI</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 0</span>
-                            </li>
-                             <li class="release-item">
-                                <strong>Barclaycard - TM Payment Query</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Lorna Vincent | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: Operational Essential | Story Points: 3</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Doddle Support: Paywise Auto-Pay Failure During Statement Import</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 1</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="release-type-group p-4">
-                        <h3>Maintenance</h3>
-                        <ul>
-                            <li class="release-item">
-                                <strong>Replace eNetts in Payment Gold</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 6</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="release-type-group p-4">
-                        <h3>Report Amendment</h3>
-                        <ul>
-                             <li class="release-item">
-                                ⭐<strong>Move Invoice Automation To Staging Schema</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: None | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: Strategic Work | Story Points: 10</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>REQ0020387 - Add Product Type Tracking to DM Bookings At Completion</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: None | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 0</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Cost Item Expected Commission Values</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: None | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 0</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Add SoftCash Fields to Tableau</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: None | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: Non Strategic Project | Story Points: 1</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="release-type-group p-4">
-                        <h3>Manual Report</h3>
-                        <ul>
-                             <li class="release-item">
-                                <strong>Direct Payments Movements</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Transactional Processing | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 1</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>Supplier Payment - Cash Flow Reporting</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: Lorna Vincent | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 3</span>
-                            </li>
-                            <li class="release-item">
-                                <strong>FP&A Monthly Report - JUL25</strong><br>
-                                <span class="text-xs text-slate-500">Requestor: FP&A | Created: 29/08/2025 | Resolved: 29/08/2025 | Work Type: BAU | Story Points: 1</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
             </section>
 
             <section id="priorities" class="content-section space-y-8 hidden">
-                <div>
-                    <h2 class="text-2xl font-bold text-slate-900 mb-2">Priorities for the Coming Period (September 2025)</h2>
-                    <p class="text-slate-600 max-w-3xl font-semibold">Finalising Projects around operational efficiencies and pipeline reporting, removal of finance cost to serve tasks due to blockers. Overrides likely moving to October.</p>
-                    <p class="text-slate-600 max-w-3xl">These are the key objectives the team will focus on in the upcoming month to drive strategic progress and deliver value, aligned with our overarching company and finance goals. This consolidated view provides a quick understanding of our strategic focus. Hover over a priority name for more details.</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 overflow-x-auto">
-                    <table class="w-full text-left border-collapse priority-table">
-                        <thead>
-                            <tr>
-                                <th class="w-[15%]">Company Goal</th>
-                                <th class="w-[14%]">Working Capital</th>
-                                <th class="w-[14%]">Overhead Automation</th>
-                                <th class="w-[14%]">Report Automation</th>
-                                <th class="w-[14%]">People Focus</th>
-                                <th class="w-[14%]">Margin Control</th>
-                                <th class="w-[13%]">Efficiency Enhancement</th>
-                                <th class="w-[10%]">Team</th> </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="font-semibold text-slate-800">Cross-functional / Finance Specific</span></td>
-                                <td><span class="priority-bubble team-data-bi priority-top-focus" data-tooltip-content="Finalize Pipeline Monies Reporting: Ensure accurate reporting of pipeline monies position by finalizing dataset testing and report development.">Finalize Pipeline Monies Reporting</span></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td><span class="font-semibold text-slate-800">Gain Efficiency</span></td>
-                                <td></td>
-                                <td><span class="priority-bubble team-finance" data-tooltip-content="Offline Ancillary Invoice Automation: Build a process to capture api responses for ancillaries that were booked online, ensuring we can still automatically invoice.">Offline Ancillary Invoice Automation</span></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><span class="priority-bubble team-data-bi" data-tooltip-content="Enhance Paywise Data & Performance: Improve Paywise data availability, reporting view speed, and content for users.">Enhance Paywise Data & Performance</span></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td><span class="font-semibold text-slate-800">Go Global</span></td>
-                                <td></td>
-                                <td><span class="priority-bubble team-finance" data-tooltip-content="Improve Booking Success Rate: Utilise Reporting to identify reasons for failed/unattempted bookings, aiming to increase API booking percentage and invoice automation.">Improve Booking Success Rate</span></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td><span class="font-semibold text-slate-800">Growing Online</span></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td><span class="font-semibold text-slate-800">Put People First</span></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><span class="priority-bubble team-finance" data-tooltip-content="Launch Staff Circle within Finance Product: Initiate the Staff Circle program to prioritize people-centric initiatives within the team.">Launch Staff Circle</span></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td><span class="font-semibold text-slate-800">Increase Margin</span></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><span class="priority-bubble team-finance" data-tooltip-content="Report On-Invoice Override Commissions: Develop reports to highlight instances where on-invoice override commissions were not loaded, to minimize dilution and identify potential overpayments.">Report On-Invoice Override Commissions</span></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td><span class="font-semibold text-slate-800">Build Loyalty</span></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-            
+                </section>
+
             <section id="ahead" class="content-section space-y-8 hidden">
                 <div>
-                    <h2 class="text-2xl font-bold text-slate-900 mb-2">A Look Ahead (September 2025)</h2>
-                    <p class="text-slate-600 max-w-3xl">These are the tickets that are currently in progress, prioritised, or have been selected for development that the team will be focusing on in the coming month.</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-2">A Look Ahead (Upcoming Period)</h2>
+                    <p class="text-slate-600 max-w-3xl">This section details tickets that are currently in progress, prioritized, or selected for development for the upcoming month.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                    <ul class="space-y-4 text-slate-700">
-                        <li>
-                            <h4 class="font-semibold text-lg underline">In Progress</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-1">
-                                <li><strong>FCP-459</strong> - Doddle Support - Transactions Not Assigned to a Booking ID (Created: 22/08/2025)</li>
-                                <li><strong>FCP-438</strong> - Improve Opening Position Banking Fields (Created: 07/08/2025)</li>
-                                <li><strong>FCP-473</strong> - Bring dbo.TransportInvoiceInformation into datawarehouse (Created: 27/08/2025)</li>
-                                <li><strong>FCP-467</strong> - Offline Invoice Automation Testing (Created: 26/08/2025)</li>
-                                <li><strong>FCP-429</strong> - Doddle Support: Payment On Account Bugs (Created: 02/08/2025)</li>
-                                <li><strong>FCP-388</strong> - INC0064139 - User Name Change Resulted In Lost Flexi Access (Created: 27/06/2025)</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h4 class="font-semibold text-lg underline">Testing</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-1">
-                                <li><strong>FCP-449</strong> - Cost & Discount Report Query (Created: 19/08/2025)</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h4 class="font-semibold text-lg underline">In Code Review</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-1">
-                                <li><strong>FCP-432</strong> - Build Pipeline Monies Tableau View (Created: 04/08/2025)</li>
-                            </ul>
-                        </li>
-                         <li>
-                            <h4 class="font-semibold text-lg underline">Prioritised</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-1">
-                                <li><strong>FCP-474</strong> - Build Offline Ancillary Invoice Automation Sproc (Created: 27/08/2025)</li>
-                                <li><strong>FCP-194</strong> - Relaunch On-Invoice Override Monitoring (Created: 07/03/2025)</li>
-                                <li><strong>FCP-357</strong> - Create SQL Table for Pre-Paywise Bank Statements with Cashflow Allocation and Statement Number Fields (Created: 22/05/2025)</li>
-                                <li><strong>FCP-480</strong> - Paywise: Travel Ledger and eNett Reconciliation 3.0 (Created: 29/08/2025)</li>
-                                <li><strong>FCP-439</strong> - Source Data for Missing Supplier Payments (Created: 07/08/2025)</li>
-                                <li><strong>FCP-478</strong> - Transition Supplier Payment Reporting To New Source (Created: 28/08/2025)</li>
-                                <li><strong>FCP-379</strong> - Multi Occupancy Price Rounding (Created: 17/06/2025)</li>
-                                <li><strong>FCP-428</strong> - Unexpected Commission Values in Reporting (Created: 02/08/2025)</li>
-                                <li><strong>FCP-349</strong> - Celeb transfer estimated (Created: 20/05/2025)</li>
-                                <li><strong>FCP-350</strong> - Princess Plus Unable To AutoBook (Created: 20/05/2025)</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h4 class="font-semibold text-lg underline">Selected for Development</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-1">
-                                <li><strong>FCP-441</strong> - Add MonthToMonth Summary of Invoice Automation (Created: 11/08/2025)</li>
-                                <li><strong>FCP-470</strong> - NULL Brand Codes for Directs (Created: 26/08/2025)</li>
-                                <li><strong>FCP-479</strong> - Follow up on travel ledger outbounding 2.0 (Created: 28/08/2025)</li>
-                                <li><strong>FCP-469</strong> - Finance Capability Assesment (Created: 26/08/2025)</li>
-                                <li><strong>FCP-181</strong> - FTM Counted in both ancillary value & discount (Created: 05/03/2025)</li>
-                                <li><strong>FCP-440</strong> - Move [dbo].[API_Logs_WeeklyInvoiceStats] to JSON_Value (Created: 08/08/2025)</li>
-                                <li><strong>FCP-433</strong> - Document AutoPay Dependencies & Areas for Improvement (Created: 05/08/2025)</li>
-                                <li><strong>FCP-426</strong> - RITM0021231 - Payment Practice Report (Created: 02/08/2025)</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h4 class="font-semibold text-lg underline">Planned</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-1">
-                                <li><strong>FCP-475</strong> - TIG Travel Ledger Launch (Created: 27/08/2025)</li>
-                                <li><strong>FCP-472</strong> - Monthly Pipeline Extract Aug (Created: 27/08/2025)</li>
-                                <li><strong>FCP-414</strong> - Native Invoice Value Vary Between DM and DWH (Created: 17/07/2025)</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200" id="look-ahead-content">
+                    </div>
             </section>
         </main>
 
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const jiraData = [
-                { "Issue key": "FCP-462", "Issue id": 165248, "Summary": "Gross Pipeline 1st Jan - 30th June 2025", "Status": "Done", "Assignee": "Antony Fulcher", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "Operational Essential", "Resolved": "29/08/2025 12:00", "Requestor": "Lorna Vincent", "Resolution Time": 5, "Request Type": "New Report", "StoryPoints": 8 },
-                { "Issue key": "FCP-267", "Issue id": 150754, "Summary": "NULL Ledger Codes", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "None", "Resolution Time": 148, "Request Type": "Insights", "StoryPoints": 5 },
-                { "Issue key": "FCP-456", "Issue id": 165191, "Summary": "Paywise: Travel Ledger and eNett Reconciliation 2.0", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 5, "Request Type": "Support", "StoryPoints": 2 },
-                { "Issue key": "FCP-391", "Issue id": 160004, "Summary": "Doddle Support - Payment Search Duplication", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 61, "Request Type": "Bug Investigation", "StoryPoints": 0 },
-                { "Issue key": "FCP-389", "Issue id": 159959, "Summary": "Doddle Support - eNett statement failing at import stage", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 61, "Request Type": "Bug Investigation", "StoryPoints": 0 },
-                { "Issue key": "FCP-394", "Issue id": 160191, "Summary": "Doddle Support - Duplicate Travel Ledger imports", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 58, "Request Type": "Bug Investigation", "StoryPoints": 0 },
-                { "Issue key": "FCP-425", "Issue id": 163118, "Summary": "Doddle Support: eNett: Failing at Import Stage", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 27, "Request Type": "Bug Investigation", "StoryPoints": 0 },
-                { "Issue key": "FCP-445", "Issue id": 164611, "Summary": "Multi Occupancy Ambassador Costs Not Loaded", "Status": "Done", "Assignee": null, "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 9, "Request Type": "Bug Investigation", "StoryPoints": 1 },
-                { "Issue key": "FCP-443", "Issue id": 164555, "Summary": "Non GBP Payments Reporting", "Status": "Done", "Assignee": "Antony Fulcher", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Lorna Vincent", "Resolution Time": 12, "Request Type": "New Report", "StoryPoints": 2 },
-                { "Issue key": "FCP-384", "Issue id": 159863, "Summary": "Replace eNetts in Payment Gold", "Status": "Done", "Assignee": "Antony Fulcher", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 63, "Request Type": "Maintenance", "StoryPoints": 6 },
-                { "Issue key": "FCP-302", "Issue id": 152403, "Summary": "BookingAPI Not Attempt Reason Reporting", "Status": "Done", "Assignee": "Antony Fulcher", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "Non Strategic Project", "Resolved": "29/08/2025 12:00", "Requestor": "IT", "Resolution Time": 129, "Request Type": "New Report", "StoryPoints": 9 },
-                { "Issue key": "FCP-447", "Issue id": 164615, "Summary": "Understand Our Current TIG Risk Profile", "Status": "Done", "Assignee": "Antony Fulcher", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "Non Strategic Project", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 9, "Request Type": "New Report", "StoryPoints": 3 },
-                { "Issue key": "FCP-458", "Issue id": 165197, "Summary": "Commission Report for Retail and TM Bookings", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Reconciliation", "Resolution Time": 4, "Request Type": "New Report", "StoryPoints": 1 },
-                { "Issue key": "FCP-457", "Issue id": 165195, "Summary": "Report for Auto-Paid Transactions in Paywise where Commissions Differ", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Reconciliation", "Resolution Time": 4, "Request Type": "New Report", "StoryPoints": 2 },
-                { "Issue key": "FCP-464", "Issue id": 165411, "Summary": "Check Invoice Automation Change Records", "Status": "Done", "Assignee": "Antony Fulcher", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "Non Strategic Project", "Resolved": "29/08/2025 12:00", "Requestor": "None", "Resolution Time": 0, "Request Type": "Bug Investigation", "StoryPoints": 1 },
-                { "Issue key": "FCP-343", "Issue id": 155585, "Summary": "Move Invoice Automation To Staging Schema", "Status": "Done", "Assignee": "Antony Fulcher", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "Strategic Work", "Resolved": "29/08/2025 12:00", "Requestor": "None", "Resolution Time": 104, "Request Type": "Report Amendment", "StoryPoints": 10 },
-                { "Issue key": "FCP-229", "Issue id": 149725, "Summary": "INC0062588- Missing Identical Payments in dbo.v_Reporting for Direct & eNett Transactions", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 161, "Request Type": "Bug Investigation", "StoryPoints": 0 },
-                { "Issue key": "FCP-406", "Issue id": 161525, "Summary": "Rebuild Paywise Views", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "Non Strategic Project", "Resolved": "29/08/2025 12:00", "Requestor": "None", "Resolution Time": 42, "Request Type": "New Report", "StoryPoints": 54 },
-                { "Issue key": "FCP-450", "Issue id": 165077, "Summary": "Paywise: Travel Ledger and eNett Reconciliation", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 0, "Request Type": "Support", "StoryPoints": 1 },
-                { "Issue key": "FCP-223", "Issue id": 149686, "Summary": "REQ0020387 - Add Product Type Tracking to DM Bookings At Completion", "Status": "Done", "Assignee": null, "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "None", "Resolution Time": 158, "Request Type": "Report Amendment", "StoryPoints": 0 },
-                { "Issue key": "FCP-448", "Issue id": 164690, "Summary": "Travel Ledger - FTP Upload Duplication", "Status": "Done", "Assignee": "Antony Fulcher", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 1, "Request Type": "Bug Investigation", "StoryPoints": 1 },
-                { "Issue key": "FCP-444", "Issue id": 164610, "Summary": "Cost Item Expected Commission Values", "Status": "Done", "Assignee": "Antony Fulcher", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "None", "Resolution Time": 0, "Request Type": "Report Amendment", "StoryPoints": 0 },
-                { "Issue key": "FCP-442", "Issue id": 164553, "Summary": "Booking Shares Reporting", "Status": "Done", "Assignee": "Antony Fulcher", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "IT", "Resolution Time": 0, "Request Type": "New Report", "StoryPoints": 1 },
-                { "Issue key": "FCP-400", "Issue id": 160871, "Summary": "Add SoftCash Fields to Tableau", "Status": "Done", "Assignee": null, "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "Non Strategic Project", "Resolved": "29/08/2025 12:00", "Requestor": "None", "Resolution Time": 38, "Request Type": "Report Amendment", "StoryPoints": 1 },
-                { "Issue key": "FCP-435", "Issue id": 163492, "Summary": "INC0064768 - Insurance report not returning data for July", "Status": "Done", "Assignee": null, "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "Operational Essential", "Resolved": "29/08/2025 12:00", "Requestor": "Compliance", "Resolution Time": 6, "Request Type": "Bug Investigation", "StoryPoints": 1 },
-                { "Issue key": "FCP-437", "Issue id": 163552, "Summary": "Daily - Load Direct Payment & RCL Groups", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 4, "Request Type": "Support", "StoryPoints": 3.5 },
-                { "Issue key": "FCP-436", "Issue id": 163527, "Summary": "Direct Payments Movements", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 0, "Request Type": "Manual Report", "StoryPoints": 1 },
-                { "Issue key": "FCP-246", "Issue id": 150203, "Summary": "Setup AutoPayDecision Reporting Subscriptions", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "Non Strategic Project", "Resolved": "29/08/2025 12:00", "Requestor": "None", "Resolution Time": 134, "Request Type": "New Report", "StoryPoints": 6 },
-                { "Issue key": "FCP-430", "Issue id": 163281, "Summary": "INC0064713 - Enett Statement Failing To Process BI", "Status": "Done", "Assignee": null, "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 1, "Request Type": "Bug Investigation", "StoryPoints": 0 },
-                { "Issue key": "FCP-420", "Issue id": 162613, "Summary": "Finance Stateholder Updates", "Status": "Done", "Assignee": "Antony Fulcher", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Nancy Emery", "Resolution Time": 11, "Request Type": "Insights", "StoryPoints": 6 },
-                { "Issue key": "FCP-427", "Issue id": 163262, "Summary": "Supplier Payment - Cash Flow Reporting", "Status": "Done", "Assignee": "Antony Fulcher", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Lorna Vincent", "Resolution Time": 2, "Request Type": "Manual Report", "StoryPoints": 3 },
-                { "Issue key": "FCP-431", "Issue id": 163322, "Summary": "FP&A Monthly Report - JUL25", "Status": "Done", "Assignee": "Ilyas Esa", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "FP&A", "Resolution Time": 0, "Request Type": "Manual Report", "StoryPoints": 1 },
-                { "Issue key": "FCP-402", "Issue id": 161402, "Summary": "Barclaycard - TM Payment Query", "Status": "Done", "Assignee": "Antony Fulcher", "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "Operational Essential", "Resolved": "29/08/2025 12:00", "Requestor": "Lorna Vincent", "Resolution Time": 21, "Request Type": "Bug Investigation", "StoryPoints": 3 },
-                { "Issue key": "FCP-422", "Issue id": 162977, "Summary": "Doddle Support: Paywise Auto-Pay Failure During Statement Import", "Status": "Done", "Assignee": null, "Created": "29/08/2025 12:00", "Updated": "29/08/2025 12:00", "Work Type": "BAU", "Resolved": "29/08/2025 12:00", "Requestor": "Transactional Processing", "Resolution Time": 5, "Request Type": "Bug Investigation", "StoryPoints": 1 }
-            ];
-
-            const keyAchievements = [
-                { summary: "Non-Attempt API Reporting", description: "Finalised Reporting to hep indicate why we didn't book via API, solidifying a list of actions to improve and grow online." },
-                { summary: "Agreed TIG Travel Ledger Start Date", description: "Agreed with TIG to start processing supplier payments on Travel Ledger rather than daily direct debit." },
-                { summary: "Invoice Automation Process Adapted for Late Bookings", description: "Deployment from late July was succesful towards the end of August, seen a positive uptake in invoice automation %" },
-                { summary: "Paywise Reporting Uphaul", description: "Previously unavailable content has been made available, Supplier Payment Reporting Views have been cleansed and rebuilt and will be replacing existing sources in early September. (Eliminating previously prohibitive performance issues)" },
-                { summary: "Pipeline Reporting", description: "Performance issues have been resolved, V1 Reporting has now been built as we're now capable of capturing pipeline position at month-end." },
-                { summary: "Offline Ancillary invoice Automation", description: "Succesfull testing cycle of offline ancillary invoice automation, anticipating a deploy early September." }
-            ];
-
-            const blockersDecisions = [
-                { type: "❓", title: "Decision Required: Align Finance Goals with Company Strategy", description: "A clear definition of finance-specific goals is needed to ensure alignment with overall company strategy for Q4 and 2026, enabling the finalization and agreement of a development roadmap with IT. This decision requires input from Lorna Vincent and Antony Fulcher." },
-                { type: "❗", title: "Action Required: Clarity around remaining pipeline reporting requirements now that we're capable from a performance perspective.", description: "Clarity around remaining pipeline reporting requirements now that we're capable from a performance perspective." }
-            ];
-
-            const strategicProgression = [
-                { name: "Auto Invoice", current: 32, previous: 28, lastYear: 28, type: "percentage", improvement: "None provided." },
-                { name: "Auto Invoice @ Completion", current: 44, previous: 39, lastYear: null, type: "percentage", improvement: "None provided." },
-                { name: "Travel Ledger Processed Volume", current: 65, previous: 48, lastYear: null, type: "percentage", improvement: "Back up to 65% after a dip to 48% due to processing errors. 17% of Statements via Travel Ledger - a historical high" }
-            ];
-
-            const prioritiesData = [
-                {
-                    "Company Goal": "Cross-functional / Finance Specific",
-                    "Working Capital": {
-                        name: "Finalize Pipeline Monies Reporting",
-                        description: "Finalize Pipeline Monies Reporting: Ensure accurate reporting of pipeline monies position by finalizing dataset testing and report development.",
-                        team: "Data & BI",
-                        isTopFocus: true
-                    },
-                    "Overhead Automation": null,
-                    "Report Automation": null,
-                    "People Focus": null,
-                    "Margin Control": null,
-                    "Efficiency Enhancement": null
-                },
-                {
-                    "Company Goal": "Gain Efficiency",
-                    "Working Capital": null,
-                    "Overhead Automation": [
-                        {
-                            name: "Offline Ancillary Invoice Automation",
-                            description: "Offline Ancillary Invoice Automation: Build a process to capture api responses for ancillaries that were booked online, ensuring we can still automatically invoice.",
-                            team: "Finance"
-                        }
-                    ],
-                    "Report Automation": null,
-                    "People Focus": null,
-                    "Margin Control": null,
-                    "Efficiency Enhancement": {
-                        name: "Enhance Paywise Data & Performance",
-                        description: "Enhance Paywise Data & Performance: Improve Paywise data availability, reporting view speed, and content for users.",
-                        team: "Data & BI"
-                    }
-                },
-                {
-                    "Company Goal": "Go Global",
-                    "Working Capital": null,
-                    "Overhead Automation": {
-                        name: "Improve Booking Success Rate",
-                        description: "Improve Booking Success Rate: Utilise Reporting to identify reasons for failed/unattempted bookings, aiming to increase API booking percentage and invoice automation.",
-                        team: "Finance"
-                    },
-                    "Report Automation": null,
-                    "People Focus": null,
-                    "Margin Control": null,
-                    "Efficiency Enhancement": null
-                },
-                {
-                    "Company Goal": "Growing Online",
-                    "Working Capital": null,
-                    "Overhead Automation": null,
-                    "Report Automation": null,
-                    "People Focus": null,
-                    "Margin Control": null,
-                    "Efficiency Enhancement": null
-                },
-                {
-                    "Company Goal": "Put People First",
-                    "Working Capital": null,
-                    "Overhead Automation": null,
-                    "Report Automation": null,
-                    "People Focus": {
-                        name: "Launch Staff Circle",
-                        description: "Launch Staff Circle within Finance Product: Initiate the Staff Circle program to prioritize people-centric initiatives within the team.",
-                        team: "Finance"
-                    },
-                    "Margin Control": null,
-                    "Efficiency Enhancement": null
-                },
-                {
-                    "Company Goal": "Increase Margin",
-                    "Working Capital": null,
-                    "Overhead Automation": null,
-                    "Report Automation": null,
-                    "People Focus": null,
-                    "Margin Control": {
-                        name: "Report On-Invoice Override Commissions",
-                        description: "Report On-Invoice Override Commissions: Develop reports to highlight instances where on-invoice override commissions were not loaded, to minimize dilution and identify potential overpayments.",
-                        team: "Finance"
-                    },
-                    "Efficiency Enhancement": null
-                },
-                {
-                    "Company Goal": "Build Loyalty",
-                    "Working Capital": null,
-                    "Overhead Automation": null,
-                    "Report Automation": null,
-                    "People Focus": null,
-                    "Margin Control": null,
-                    "Efficiency Enhancement": null
-                }
-            ];
-            
-            const aLookAheadData = [
-                { "Issue key": "FCP-459", "Summary": "Doddle Support - Transactions Not Assigned to a Booking ID", "Status": "In Progress", "Created": "22/08/2025" },
-                { "Issue key": "FCP-438", "Summary": "Improve Opening Position Banking Fields", "Status": "In Progress", "Created": "07/08/2025" },
-                { "Issue key": "FCP-473", "Summary": "Bring dbo.TransportInvoiceInformation into datawarehouse", "Status": "In Progress", "Created": "27/08/2025" },
-                { "Issue key": "FCP-467", "Summary": "Offline Invoice Automation Testing", "Status": "In Progress", "Created": "26/08/2025" },
-                { "Issue key": "FCP-429", "Summary": "Doddle Support: Payment On Account Bugs", "Status": "In Progress", "Created": "02/08/2025" },
-                { "Issue key": "FCP-388", "Summary": "INC0064139 - User Name Change Resulted In Lost Flexi Access", "Status": "In Progress", "Created": "27/06/2025" },
-                { "Issue key": "FCP-432", "Summary": "Build Pipeline Monies Tableau View", "Status": "In Code Review", "Created": "04/08/2025" },
-                { "Issue key": "FCP-449", "Summary": "Cost & Discount Report Query", "Status": "Testing", "Created": "19/08/2025" },
-                { "Issue key": "FCP-474", "Summary": "Build Offline Ancillary Invoice Automation Sproc", "Status": "Prioritised", "Created": "27/08/2025" },
-                { "Issue key": "FCP-194", "Summary": "Relaunch On-Invoice Override Monitoring", "Status": "Prioritised", "Created": "07/03/2025" },
-                { "Issue key": "FCP-357", "Summary": "Create SQL Table for Pre-Paywise Bank Statements with Cashflow Allocation and Statement Number Fields", "Status": "Prioritised", "Created": "22/05/2025" },
-                { "Issue key": "FCP-480", "Summary": "Paywise: Travel Ledger and eNett Reconciliation 3.0", "Status": "Prioritised", "Created": "29/08/2025" },
-                { "Issue key": "FCP-439", "Summary": "Source Data for Missing Supplier Payments", "Status": "Prioritised", "Created": "07/08/2025" },
-                { "Issue key": "FCP-478", "Summary": "Transition Supplier Payment Reporting To New Source", "Status": "Prioritised", "Created": "28/08/2025" },
-                { "Issue key": "FCP-379", "Summary": "Multi Occupancy Price Rounding", "Status": "Prioritised", "Created": "17/06/2025" },
-                { "Issue key": "FCP-428", "Summary": "Unexpected Commission Values in Reporting", "Status": "Prioritised", "Created": "02/08/2025" },
-                { "Issue key": "FCP-349", "Summary": "Celeb transfer estimated", "Status": "Prioritised", "Created": "20/05/2025" },
-                { "Issue key": "FCP-350", "Summary": "Princess Plus Unable To AutoBook", "Status": "Prioritised", "Created": "20/05/2025" },
-                { "Issue key": "FCP-441", "Summary": "Add MonthToMonth Summary of Invoice Automation", "Status": "Selected for Development", "Created": "11/08/2025" },
-                { "Issue key": "FCP-470", "Summary": "NULL Brand Codes for Directs", "Status": "Selected for Development", "Created": "26/08/2025" },
-                { "Issue key": "FCP-479", "Summary": "Follow up on travel ledger outbounding 2.0", "Status": "Selected for Development", "Created": "28/08/2025" },
-                { "Issue key": "FCP-469", "Summary": "Finance Capability Assesment", "Status": "Selected for Development", "Created": "26/08/2025" },
-                { "Issue key": "FCP-181", "Summary": "FTM Counted in both ancillary value & discount", "Status": "Selected for Development", "Created": "05/03/2025" },
-                { "Issue key": "FCP-440", "Summary": "Move [dbo].[API_Logs_WeeklyInvoiceStats] to JSON_Value", "Status": "Selected for Development", "Created": "08/08/2025" },
-                { "Issue key": "FCP-433", "Summary": "Document AutoPay Dependencies & Areas for Improvement", "Status": "Selected for Development", "Created": "05/08/2025" },
-                { "Issue key": "FCP-426", "Summary": "RITM0021231 - Payment Practice Report", "Status": "Selected for Development", "Created": "02/08/2025" },
-                { "Issue key": "FCP-475", "Summary": "TIG Travel Ledger Launch", "Status": "Planned", "Created": "27/08/2025" },
-                { "Issue key": "FCP-472", "Summary": "Monthly Pipeline Extract Aug", "Status": "Planned", "Created": "27/08/2025" },
-                { "Issue key": "FCP-414", "Summary": "Native Invoice Value Vary Between DM and DWH", "Status": "Planned", "Created": "17/07/2025" }
-            ];
-
-            const navLinks = document.querySelectorAll('.nav-link');
-            const contentSections = document.querySelectorAll('.content-section');
-            const tooltipDiv = document.createElement('div');
-            tooltipDiv.id = 'custom-tooltip'; 
-            tooltipDiv.classList.add('hidden'); 
-            document.body.appendChild(tooltipDiv);
-
-
-            const navigateTo = (hash) => {
-                navLinks.forEach(link => {
-                    link.classList.toggle('active', link.hash === hash);
-                });
-                contentSections.forEach(section => {
-                    section.classList.toggle('hidden', section.id !== hash.substring(1));
-                });
-            };
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetHash = e.currentTarget.hash;
-                    navigateTo(targetHash);
-                    window.history.pushState(null, null, targetHash);
-                });
-            });
-
-            const initialHash = window.location.hash || '#overview';
-            navigateTo(initialHash);
-
-            const chartTooltip = {
-                bodyFont: {
-                    size: 14,
-                },
-                titleFont: {
-                    size: 16,
-                    weight: 'bold',
-                },
-                padding: 12,
-                backgroundColor: 'rgba(15, 23, 42, 0.8)',
-                boxPadding: 4,
-            };
-
-            const chartLegends = {
-                position: 'bottom',
-                labels: {
-                    font: {
-                        size: 12,
-                        family: 'Inter'
-                    },
-                    padding: 20,
-                    color: '#475569' 
-                }
-            };
-            
-            // Populate Strategic Progression
-            const strategicProgressionList = document.getElementById('strategic-progression-list');
-            strategicProgressionList.innerHTML = ''; 
-
-            strategicProgression.forEach(item => {
-                let trendComparisonHtml = '';
-                let currentDisplayValue = '';
-
-                if (item.type === "percentage") {
-                    currentDisplayValue = `${item.current}%`;
-                    const getTrendDataPercentage = (current, compare) => {
-                        if (current === null || compare === null) return { icon: '━', color: 'text-slate-500', diff: 'N/A' };
-                        const diff = current - compare;
-                        if (diff > 0) return { icon: '▲', color: 'text-green-600', diff: Math.abs(diff) };
-                        if (diff < 0) return { icon: '▼', color: 'text-red-600', diff: Math.abs(diff) };
-                        return { icon: '━', color: 'text-slate-500', diff: 0 };
-                    };
-
-                    const prevTrend = getTrendDataPercentage(item.current, item.previous);
-                    const lastYearTrend = getTrendDataPercentage(item.current, item.lastYear);
-
-                    trendComparisonHtml = `
-                        <span class="trend-comparison" data-compare-to="previous" data-label="vs. Last Month">vs. Last Month: <span class="font-bold ${prevTrend.color}">${prevTrend.icon} ${prevTrend.diff}%</span></span> | 
-                        <span class="trend-comparison" data-compare-to="last-year" data-label="vs. Last Year">vs. Last Year: <span class="font-bold ${lastYearTrend.color}">${lastYearTrend.icon} ${lastYearTrend.diff}%</span></span>
-                    `;
-                } else if (item.type === "volume") {
-                    currentDisplayValue = `${item.current}`;
-                    const getTrendDataVolume = (current, compare) => {
-                        if (current === null || compare === null) return { icon: '━', color: 'text-slate-500', diff: 'N/A' };
-                        const diff = current - compare;
-                        if (diff > 0) return { icon: '▲', color: 'text-green-600', diff: Math.abs(diff) };
-                        if (diff < 0) return { icon: '▼', color: 'text-red-600', diff: Math.abs(diff) };
-                        return { icon: '━', color: 'text-slate-500', diff: 0 };
-                    };
-
-                    const prevTrend = getTrendDataVolume(item.current, item.previous);
-                    const lastYearTrend = getTrendDataVolume(item.current, item.lastYear);
-
-                    trendComparisonHtml = `
-                        <span class="trend-comparison-volume" data-compare-to="previous" data-label="vs. Last Month">vs. Last Month: <span class="font-bold ${prevTrend.color}">${prevTrend.icon} ${prevTrend.diff} ${item.unit}</span></span> | 
-                        <span class="trend-comparison-volume" data-compare-to="last-year" data-label="vs. Last Year">vs. Last Year: <span class="font-bold ${lastYearTrend.color}">${lastYearTrend.icon} ${lastYearTrend.diff} ${item.unit}</span></span>
-                    `;
-                }
-                
-                const div = document.createElement('div');
-                div.className = 'p-4 bg-slate-50 rounded-lg border border-slate-100';
-                div.innerHTML = `
-                    <div class="flex justify-between items-baseline mb-1">
-                        <span class="text-base font-medium text-slate-700">${item.name}</span>
-                        <span class="text-lg font-bold text-slate-900 current-value-display">${currentDisplayValue}</span>
+        // --- CONSOLIDATED DATA FOR ALL MONTHS ---
+        const ALL_MONTHLY_DATA = {
+            "SEP2025": { // LATEST MONTH (OFFLINE STRATEGY)
+                reportDate: "September 2025",
+                kpis: { strategicTactical: "58%", avgCompletion: "29", totalReleases: "28", activeBlockers: "4" },
+                kpiAvgCompletionUnit: "days",
+                nextMonthHeader: "October 2025",
+                prioritiesSummary: "Finalising Projects around operational efficiencies and pipeline reporting, removal of finance cost to serve tasks due to blockers. Overrides likely moving to October.",
+                navLinksHTML: `
+                    <ul class="flex flex-wrap border-b border-slate-200">
+                        <li><a href="#overview" class="nav-link active text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Overview</a></li>
+                        <li><a href="#workload" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Workload Deep Dive</a></li>
+                        <li><a href="#strategy" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Strategic Progression</a></li>
+                        <li><a href="#releases" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Product Releases</a></li>
+                        <li><a href="#priorities" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Priorities</a></li>
+                    </ul>
+                `,
+                prioritiesContentHTML: `
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-2" id="priorities-header">Priorities for the Coming Period (October 2025)</h2>
+                        <p class="text-slate-600 max-w-3xl font-semibold" id="priorities-summary">Finalising Projects around operational efficiencies and pipeline reporting, removal of finance cost to serve tasks due to blockers. Overrides likely moving to October.</p>
+                        <p class="text-slate-600 max-w-3xl">These are the key objectives the team will focus on in the upcoming month to drive strategic progress and deliver value, aligned with our overarching company and finance goals. This consolidated view provides a quick understanding of our strategic focus. Hover over a priority name for more details.</p>
                     </div>
-                    <div class="w-full bg-slate-200 rounded-full h-4">
-                        <div class="bg-amber-500 h-4 rounded-full" style="width: ${item.type === 'percentage' ? item.current : 100}%"></div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 overflow-x-auto">
+                        <table class="w-full text-left border-collapse priority-table">
+                            <thead>
+                                <tr>
+                                    <th class="w-[15%]">Company Goal</th>
+                                    <th class="w-[14%]">Working Capital</th>
+                                    <th class="w-[14%]">Overhead Automation</th>
+                                    <th class="w-[14%]">Report Automation</th>
+                                    <th class="w-[14%]">People Focus</th>
+                                    <th class="w-[14%]">Margin Control</th>
+                                    <th class="w-[14%]">Efficiency Enhancement</th>
+                                    <th class="w-[13%]">Team</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
                     </div>
-                    <p class="text-sm text-slate-500 mt-2">
-                        ${trendComparisonHtml}
-                        <br>Tangible Improvement: ${item.improvement}
-                    </p>
-                `;
-                strategicProgressionList.appendChild(div);
-            });
-
-            // --- JIRA Data Processing and KPI Calculation ---
-            const ticketsCompleted = jiraData.filter(ticket => ticket.Status === 'Done');
-
-            // Calculate Avg. Completion Time
-            let totalResolutionTime = 0;
-            let ticketsWithResolutionTime = 0;
-            ticketsCompleted.forEach(ticket => {
-                if (ticket["Resolution Time"] !== undefined && ticket["Resolution Time"] !== null) {
-                    totalResolutionTime += ticket["Resolution Time"];
-                    ticketsWithResolutionTime++;
-                }
-            });
-            const avgCompletionTime = ticketsWithResolutionTime > 0 ? (totalResolutionTime / ticketsWithResolutionTime).toFixed(2) : 0;
-
-            // Calculate Workload Breakdown by Type
-            const workloadTypes = {};
-            ticketsCompleted.forEach(ticket => {
-                workloadTypes[ticket["Work Type"]] = (workloadTypes[ticket["Work Type"]] || 0) + 1;
-            });
-
-            const workloadLabels = Object.keys(workloadTypes);
-            const workloadCounts = Object.values(workloadTypes);
-            const totalWorkloadCount = workloadCounts.reduce((sum, count) => sum + count, 0);
-
-            // Calculate Strategic & Tactical Work %
-            const strategicWorkloadPercentage = 65;
-
-            // Calculate Primary Requestors by Volume
-            const requestors = {};
-            ticketsCompleted.forEach(ticket => {
-                requestors[ticket["Requestor"]] = (requestors[ticket["Requestor"]] || 0) + 1;
-            });
-            const requestorLabels = Object.keys(requestors);
-            const requestorCounts = Object.values(requestors);
-
-            // Calculate Product Release Types
-            const releaseTypes = {};
-            ticketsCompleted.forEach(ticket => {
-                releaseTypes[ticket["Request Type"]] = (releaseTypes[ticket["Request Type"]] || 0) + 1;
-            });
-            const releaseTypeLabels = Object.keys(releaseTypes);
-            const releaseTypeCounts = Object.values(releaseTypes);
-
-            // Populate KPIs
-            document.getElementById('kpi-avg-completion').innerHTML = `${avgCompletionTime} <span class="text-2xl">days</span>`;
-            document.getElementById('kpi-total-releases').textContent = ticketsCompleted.length; 
-
-            // Update Total Tickets Closed in Workload Deep Dive
-            document.getElementById('total-tickets-closed').textContent = ticketsCompleted.length;
-
-            // Populate Workload Breakdown Chart
-            const workloadCtx = document.getElementById('workloadChart').getContext('2d');
-            new Chart(workloadCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: workloadLabels,
-                    datasets: [{
-                        label: 'Workload %',
-                        data: workloadCounts,
-                        backgroundColor: [
-                            '#f59e0b',
-                            '#64748b',
-                            '#94a3b8',
-                            '#cbd5e1',
-                            '#71717a'
-                        ],
-                        borderColor: '#f8fafc',
-                        borderWidth: 4,
-                        hoverOffset: 8
-                    }]
+                `,
+                strategicProgression: null, // Signals the use of the OFF-LINE marker in JS
+                achievements: [
+                    { summary: "Finalised Our Q4 Roadmap with a key priority being resolving issues around the Invoice Uploads Report", description: "Finalised Our Q4 Roadmap with a key priority being resolving issues around the Invoice Uploads Report" },
+                    { summary: "TIG Travel Ledger Release - Testing Period finalised as of end of September, full release in October", description: "TIG Travel Ledger Release - Testing Period finalised as of end of September, full release in October" },
+                    { summary: "Offline Ancillary Invoice Automation Succesful relelease and now complete.", description: "Offline Ancillary Invoice Automation Succesful relelease and now complete." },
+                    { summary: "Tableau Data Sources Cretaed to Aid Enett & Bank Reconciliations, as well as opening payment position project.", description: "Tableau Data Sources Cretaed to Aid Enett & Bank Reconciliations, as well as opening payment position project." },
+                    { summary: "Successful Transition to New Supplier Payments Data Sources - All supplier payment reports no longer inhibted by performance", description: "Successful Transition to New Supplier Payments Data Sources - All supplier payment reports no longer inhibted by performance" },
+                    { summary: "Weekly & Monthly Data Capture of Pipeline Cash Established.", description: "Weekly & Monthly Data Capture of Pipeline Cash Established." }
+                ],
+                blockers: [
+                    { type: "❗", title: "Action Required: Supplier Driven Changes have a signifcant knock-on effect, namely P&O PPN Processing, as well as issues arising around virgin voyages.", description: "Action Required: Supplier Driven Changes have a signifcant knock-on effect, namely P&O PPN Processing, as well as issues arising around virgin voyages." },
+                    { type: "❗", title: "Action Required: Follow-up Meeting required to begin splitting 2026 strategic initiatives into first and second halves of the year.", description: "Action Required: Follow-up Meeting required to begin splitting 2026 strategic initiatives into first and second halves of the year." },
+                    { type: "❓", title: "Decision Required: SAFI Deployment has been delayed and needs a hypothesis statement produced to coordinate efforts.", description: "Decision Required: SAFI Deployment has been delayed and needs a hypothesis statement produced to coordinate efforts." },
+                    { type: "❗", title: "Action Required: Pipeline Report Delayed due to availability of Dan Clay to finalise tableau data sources.", description: "Action Required: Pipeline Report Delayed due to availability of Dan Clay to finalise tableau data sources." }
+                ],
+                jira: {
+                    workloadLabels: ["BAU", "Strategic Work", "Non Strategic Project", "Operational Essential"], workloadCounts: [19, 7, 1, 1],
+                    requestorLabels: ["Transactional Processing", "None", "Reconciliation", "Compliance", "FP&A", "Lorna Vincent", "IT"], requestorCounts: [12, 8, 4, 1, 1, 1, 1],
+                    releaseTypeLabels: ["Report Amendment", "Bug Investigation", "New Report", "Support", "Manual Report", "Insights", "Maintenance"], releaseTypeCounts: [7, 7, 5, 5, 2, 1, 1],
+                    releases: [{"Summary": "INC0064124 - Remove Added Benefit Discount From Tableau Report", "Requestor": "Compliance", "Created Date": "27/06/2025", "Resolved Date": "29/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Create SQL Table for Pre-Paywise Bank Statements with Cashflow Allocation and Statement Number Fields", "Requestor": "Transactional Processing", "Created Date": "22/05/2025", "Resolved Date": "29/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "New Report", "is_key_release": true}, {"Summary": "Create Pre-Paywise Enett Excel with Supplier Reference and Booking ID", "Requestor": "Transactional Processing", "Created Date": "22/05/2025", "Resolved Date": "29/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "New Report", "is_key_release": false}, {"Summary": "Travel Ledger Notifications Present Wrong Values", "Requestor": "Transactional Processing", "Created Date": "29/09/2025", "Resolved Date": "29/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Build Offline Ancillary Invoice Automation Sproc", "Requestor": "None", "Created Date": "27/08/2025", "Resolved Date": "29/09/2025", "Work Type": "Strategic Work", "Story Points": 0, "Request Type": "Support", "is_key_release": true}, {"Summary": "Offline Invoice Automation Testing", "Requestor": "None", "Created Date": "26/08/2025", "Resolved Date": "29/09/2025", "Work Type": "Strategic Work", "Story Points": 0, "Request Type": "Support", "is_key_release": false}, {"Summary": "Native Invoice Value Vary Between DM and DWH", "Requestor": "Reconciliation", "Created Date": "17/07/2025", "Resolved Date": "26/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Rebuild Invoice Insights Dashboard", "Requestor": "Transactional Processing", "Created Date": "02/09/2025", "Resolved Date": "23/09/2025", "Work Type": "Strategic Work", "Story Points": 0, "Request Type": "New Report", "is_key_release": true}, {"Summary": "INC0063804 - BookingAPI OBC Discrepancy ", "Requestor": "Transactional Processing", "Created Date": "03/06/2025", "Resolved Date": "18/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Bring dbo.TransportInvoiceInformation into datawarehouse", "Requestor": "None", "Created Date": "27/08/2025", "Resolved Date": "16/09/2025", "Work Type": "Strategic Work", "Story Points": 0, "Request Type": "Support", "is_key_release": false}, {"Summary": "Invoice Automations Failure - 15/09", "Requestor": "None", "Created Date": "15/09/2025", "Resolved Date": "15/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Fix Supplier Payments / Transaction List", "Requestor": "Transactional Processing", "Created Date": "02/09/2025", "Resolved Date": "12/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Doddle Support - Use of Booking Snapshot Priority Codes in Auto-Pay", "Requestor": "Transactional Processing", "Created Date": "03/09/2025", "Resolved Date": "12/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Doddle Support - Not Matching On Surname", "Requestor": "Transactional Processing", "Created Date": "10/09/2025", "Resolved Date": "12/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Travel Ledger Statements with Incorrect Payment Statuses", "Requestor": "Reconciliation", "Created Date": "10/09/2025", "Resolved Date": "12/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Reconciliation Report - Missing Payment Data", "Requestor": "Reconciliation", "Created Date": "09/09/2025", "Resolved Date": "12/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "New Report", "is_key_release": false}, {"Summary": "Reconciliation Report - Incorrect Payment Data", "Requestor": "Reconciliation", "Created Date": "09/09/2025", "Resolved Date": "12/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "New Report", "is_key_release": false}, {"Summary": "Reconciliation Report - New Statement Data", "Requestor": "Reconciliation", "Created Date": "09/09/2025", "Resolved Date": "12/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "New Report", "is_key_release": false}, {"Summary": "Build Tableau Data Source for Supplier Invoices", "Requestor": "None", "Created Date": "29/08/2025", "Resolved Date": "09/09/2025", "Work Type": "Strategic Work", "Story Points": 0, "Request Type": "Support", "is_key_release": false}, {"Summary": "Review Data Flow - Paywise to Reconciliation", "Requestor": "None", "Created Date": "27/08/2025", "Resolved Date": "09/09/2025", "Work Type": "Strategic Work", "Story Points": 0, "Request Type": "Support", "is_key_release": false}, {"Summary": "Paywise Commission Reconcilliation View", "Requestor": "None", "Created Date": "27/08/2025", "Resolved Date": "09/09/2025", "Work Type": "Strategic Work", "Story Points": 0, "Request Type": "Support", "is_key_release": false}, {"Summary": "FP&A Monthly Report - AUG25", "Requestor": "FP&A", "Created Date": "09/09/2025", "Resolved Date": "09/09/2025", "Work Type": "Operational Essential", "Story Points": 0, "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Create Tableau View for Supplier Statement Reconciliation", "Requestor": "Transactional Processing", "Created Date": "02/09/2025", "Resolved Date": "06/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Paywise Recon - Update Statement Date Field", "Requestor": "Transactional Processing", "Created Date": "02/09/2025", "Resolved Date": "06/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Add Payment Gateway Data to Reconciliation Report", "Requestor": "Lorna Vincent", "Created Date": "02/09/2025", "Resolved Date": "06/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Finalise Report Subscription Automation", "Requestor": "IT", "Created Date": "02/09/2025", "Resolved Date": "06/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Manual Data Entry for Commission Reconciliation", "Requestor": "None", "Created Date": "01/09/2025", "Resolved Date": "01/09/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "INC0062588 - Missing Identical Payments in dbo.v_Reporting for Direct & eNett Transactions", "Requestor": "Transactional Processing", "Created Date": "19/04/2025", "Resolved Date": "28/08/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Bug Investigation", "is_key_release": false}]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '60%',
-                    plugins: {
-                        legend: chartLegends,
-                        tooltip: chartTooltip
-                    }
-                }
-            });
-
-            // Populate Primary Requestors Chart
-            const requestorsCtx = document.getElementById('requestorsChart').getContext('2d');
-            new Chart(requestorsCtx, {
-                type: 'bar',
-                data: {
-                    labels: requestorLabels,
-                    datasets: [{
-                        label: 'Number of Requests',
-                        data: requestorCounts,
-                        backgroundColor: '#f59e0b',
-                        borderColor: '#d97706',
-                        borderWidth: 1,
-                        borderRadius: 4,
-                    }]
+                priorities: [
+                    {"Company Goal": "Cross-functional / Finance Specific", "Working Capital": {"name": "Pipeline Reporting - Finalise Launch of V1 Pipeline Monies, cash flow reporitng to follow in a later month.", "description": "Pipeline Reporting - Finalise Launch of V1 Pipeline Monies, cash flow reporitng to follow in a later month.", "team": "Data & BI", "isTopFocus": true}, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null},
+                    {"Company Goal": "Gain Efficiency", "Working Capital": null, "Overhead Automation": null, "Report Automation": {"name": "Invoice Uploads Report - Collab Work Group Established Weekly - Investigation Underway", "description": "Invoice Uploads Report - Collab Work Group Established Weekly - Investigation Underway", "team": "Finance"}, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": {"name": "Booking Efficencies - Establish AutoPay Dashboards and aid the discovery of booking effiencies, via reporting and improvement suggestion.", "team": "Booking & Fulfilment"}},
+                    {"Company Goal": "Increase Margin", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": {"name": "Establish SAFI - Create Hypothesis Statements & Plan Work", "description": "Establish SAFI - Create Hypothesis Statements & Plan Work", "team": "CRM"}, "Efficiency Enhancement": null},
+                    {"Company Goal": "Go Global", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null},
+                    {"Company Goal": "Growing Online", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null},
+                    {"Company Goal": "Put People First", "Working Capital": null, "Overhead Automation": null, "Report Automation": {"name": "Tableau Organisation - Conduct an exercise to clean up tableau enviorment and document finance use cases", "description": "Tableau Organisation - Conduct an exercise to clean up tableau enviorment and document finance use cases", "team": "Finance"}, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null},
+                    {"Company Goal": "Build Loyalty", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": {"name": "Supplier Opening Position - Finalise Work to improve the data quality of the opening position, aid payment decisions.", "description": "Supplier Opening Position - Finalise Work to improve the data quality of the opening position, aid payment decisions.", "team": "Finance"}}
+                ]
+            },
+            "AUG2025": { // PREVIOUS MONTH
+                reportDate: "August 2025",
+                kpis: { strategicTactical: "65%", avgCompletion: "33.58", totalReleases: "27", activeBlockers: "1" },
+                kpiAvgCompletionUnit: "days",
+                nextMonthHeader: "September 2025",
+                prioritiesSummary: "Finalising Projects around operational efficiencies and pipeline reporting, removal of finance cost to serve tasks due to blockers. Overrides likely moving to September.",
+                navLinksHTML: `
+                    <ul class="flex flex-wrap border-b border-slate-200">
+                        <li><a href="#overview" class="nav-link active text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Overview</a></li>
+                        <li><a href="#workload" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Workload Deep Dive</a></li>
+                        <li><a href="#strategy" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Strategic Progression</a></li>
+                        <li><a href="#releases" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Product Releases</a></li>
+                        <li><a href="#priorities" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Priorities</a></li>
+                        <li><a href="#ahead" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">A Look Ahead</a></li>
+                    </ul>
+                `,
+                prioritiesContentHTML: `
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-2" id="priorities-header">Priorities for the Coming Period (September 2025)</h2>
+                        <p class="text-slate-600 max-w-3xl font-semibold" id="priorities-summary">Finalising Projects around operational efficiencies and pipeline reporting, removal of finance cost to serve tasks due to blockers. Overrides likely moving to September.</p>
+                        <p class="text-slate-600 max-w-3xl">These are the key objectives the team will focus on in the upcoming month to drive strategic progress and deliver value, aligned with our overarching company and finance goals. This consolidated view provides a quick understanding of our strategic focus. Hover over a priority name for more details.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 overflow-x-auto">
+                        <table class="w-full text-left border-collapse priority-table">
+                            <thead>
+                                <tr>
+                                    <th class="w-[15%]">Company Goal</th>
+                                    <th class="w-[14%]">Working Capital</th>
+                                    <th class="w-[14%]">Overhead Automation</th>
+                                    <th class="w-[14%]">Report Automation</th>
+                                    <th class="w-[14%]">People Focus</th>
+                                    <th class="w-[14%]">Margin Control</th>
+                                    <th class="w-[14%]">Efficiency Enhancement</th>
+                                    <th class="w-[13%]">Team</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                `,
+                strategicProgression: [
+                    { name: "Auto Pay", current: 84, previous: 84, lastYear: 17, type: "percentage", improvement: "Remained at 84% following last month." },
+                    { name: "Auto Invoice", current: 28, previous: 29, lastYear: 32, type: "percentage", improvement: "Moved from 29% last month to 28% this month (32% this month last year)." },
+                    { name: "Auto Invoice @ Completion", current: 40, previous: 41, lastYear: null, type: "percentage", improvement: "Moved from 41% last month to 40% this month." },
+                    { name: "Travel Ledger Processed Volume", current: 48, previous: 64, lastYear: null, type: "percentage", improvement: "Down to 48% from 64% in June and 71% in May due to missed statements." }
+                ],
+                achievements: [
+                    { summary: "Non-Attempt API Reporting", description: "Finalised Reporting to hep indicate why we didn't book via API, solidifying a list of actions to improve and grow online." },
+                    { summary: "Agreed TIG Travel Ledger Start Date", description: "Agreed with TIG to start processing supplier payments on Travel Ledger rather than daily direct debit." },
+                    { summary: "Invoice Automation Process Adapted for Late Bookings", description: "Deployment from late July was succesful towards the end of August, seen a positive uptake in invoice automation %" },
+                    { summary: "Paywise Reporting Uphaul", description: "Previously unavailable content has been made available, Supplier Payment Reporting Views have been cleansed and rebuilt and will be replacing existing sources in early September. (Eliminating previously prohibitive performance issues)" },
+                    { summary: "Pipeline Reporting", description: "Performance issues have been resolved, V1 Reporting has now been built as we're now capable of capturing pipeline position at month-end." },
+                    { summary: "Offline Ancillary invoice Automation", description: "Succesfull testing cycle of offline ancillary invoice automation, anticipating a deploy early September." }
+                ],
+                blockers: [
+                    { type: "❓", title: "Decision Required: Align Finance Goals with Company Strategy", description: "A clear definition of finance-specific goals is needed to ensure alignment with overall company strategy for Q4 and 2026, enabling the finalization and agreement of a development roadmap with IT. This decision requires input from Lorna Vincent and Antony Fulcher." },
+                    { type: "❗", title: "Action Required: Clarity around remaining pipeline reporting requirements now that we're capable from a performance perspective.", description: "Clarity around remaining pipeline reporting requirements now that we're capable from a performance perspective." }
+                ],
+                jira: {
+                    workloadLabels: ["BAU", "Strategic Work", "Non Strategic Project", "Operational Essential"], workloadCounts: [19, 1, 6, 1],
+                    requestorLabels: ["Transactional Processing", "None", "Reconciliation", "IT", "Lorna Vincent", "Compliance", "FP&A", "Nancy Emery"], requestorCounts: [12, 6, 2, 2, 3, 1, 1, 1],
+                    releaseTypeLabels: ["Bug Investigation", "New Report", "Report Amendment", "Support", "Manual Report", "Insights", "Maintenance"], releaseTypeCounts: [9, 8, 5, 4, 3, 2, 1],
+                    releases: [{"Summary": "BookingAPI Not Attempt Reason Reporting", "Requestor": "IT", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Non Strategic Project", "Story Points": 9, "Request Type": "New Report", "is_key_release": true}, {"Summary": "Non GBP Payments Reporting", "Requestor": "Lorna Vincent", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 2, "Request Type": "New Report", "is_key_release": false}, {"Summary": "Understand Our Current TIG Risk Profile", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Non Strategic Project", "Story Points": 3, "Request Type": "New Report", "is_key_release": false}, {"Summary": "Rebuild Paywise Views", "Requestor": "None", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Non Strategic Project", "Story Points": 54, "Request Type": "New Report", "is_key_release": true}, {"Summary": "Finance Stateholder Updates", "Requestor": "Nancy Emery", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 6, "Request Type": "Insights", "is_key_release": false}, {"Summary": "Move Invoice Automation To Staging Schema", "Requestor": "None", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Strategic Work", "Story Points": 10, "Request Type": "Report Amendment", "is_key_release": true}, {"Summary": "Travel Ledger - FTP Upload Duplication", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 1, "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Barclaycard - TM Payment Query", "Requestor": "Lorna Vincent", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "Operational Essential", "Story Points": 3, "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Daily - Load Direct Payment & RCL Groups", "Requestor": "Transactional Processing", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 3.5, "Request Type": "Support", "is_key_release": false}, {"Summary": "Supplier Payment - Cash Flow Reporting", "Requestor": "Lorna Vincent", "Created Date": "29/08/2025", "Resolved Date": "29/08/2025", "Work Type": "BAU", "Story Points": 3, "Request Type": "Manual Report", "is_key_release": false}]
                 },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                           display: false
-                        },
-                        tooltip: chartTooltip
-                    },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            grid: {
-                                display: false
-                            },
-                            ticks: { color: '#475569' }
-                        },
-                        y: {
-                            grid: {
-                                color: '#e2e8f0'
-                            },
-                            ticks: { color: '#475569' }
-                        }
-                    }
-                }
-            });
-
-            // Populate Product Release Types Chart
-            const releaseTypeCtx = document.getElementById('releaseTypeChart').getContext('2d');
-            new Chart(releaseTypeCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: releaseTypeLabels,
-                    datasets: [{
-                        label: 'Number of Releases',
-                        data: releaseTypeCounts,
-                        backgroundColor: [
-                            '#f59e0b',
-                            '#d97706',
-                            '#a16207',
-                            '#64748b',
-                            '#94a3b8',
-                            '#475569',
-                            '#71717a',
-                            '#334155'
-                        ],
-                        borderColor: '#f8fafc',
-                        borderWidth: 4,
-                        hoverOffset: 8
-                    }]
+                priorities: [
+                    {"Company Goal": "Cross-functional / Finance Specific", "Working Capital": {"name": "Finalize Pipeline Monies Reporting", "description": "Finalize Pipeline Monies Reporting: Ensure accurate reporting of pipeline monies position by finalizing dataset testing and report development.", "team": "Data & BI", "isTopFocus": true}, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null},
+                    {"Company Goal": "Gain Efficiency", "Working Capital": null, "Overhead Automation": {"name": "Offline Ancillary Invoice Automation", "description": "Offline Ancillary Invoice Automation: Build a process to capture api responses for ancillaries that were booked online, ensuring we can still automatically invoice.", "team": "Finance"}, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": {"name": "Enhance Paywise Data & Performance", "description": "Enhance Paywise Data & Performance: Improve Paywise data availability, reporting view speed, and content for users.", "team": "Data & BI"}},
+                    {"Company Goal": "Go Global", "Working Capital": null, "Overhead Automation": {"name": "Improve Booking Success Rate", "description": "Improve Booking Success Rate: Utilise Reporting to identify reasons for failed/unattempted bookings, aiming to increase API booking percentage and invoice automation.", "team": "Finance"}, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null},
+                    {"Company Goal": "Growing Online", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null},
+                    {"Company Goal": "Put People First", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": {"name": "Launch Staff Circle", "description": "Launch Staff Circle within Finance Product: Initiate the Staff Circle program to prioritize people-centric initiatives within the team.", "team": "Finance"}, "Margin Control": null, "Efficiency Enhancement": null},
+                    {"Company Goal": "Increase Margin", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": {"name": "Report On-Invoice Override Commissions", "description": "Report On-Invoice Override Commissions: Develop reports to highlight instances where on-invoice override commissions were not loaded, to minimize dilution and identify potential overpayments.", "team": "Finance"}, "Efficiency Enhancement": null},
+                    {"Company Goal": "Build Loyalty", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null}
+                ],
+                ahead: [
+                    { status: "In Progress", items: [{ key: "FCP-459", summary: "Doddle Support - Transactions Not Assigned to a Booking ID", created: "22/08/2025" }, { key: "FCP-438", summary: "Improve Opening Position Banking Fields", created: "07/08/2025" }] },
+                    { status: "Testing", items: [{ key: "FCP-449", summary: "Cost & Discount Report Query", created: "19/08/2025" }] },
+                    { status: "Prioritised", items: [{ key: "FCP-474", summary: "Build Offline Ancillary Invoice Automation Sproc", created: "27/08/2025" }, { key: "FCP-194", summary: "Relaunch On-Invoice Override Monitoring", created: "07/03/2025" }] }
+                ]
+            },
+            "JUL2025": { // JULY MONTH
+                reportDate: "July 2025",
+                kpis: { strategicTactical: "35%", avgCompletion: "22.25", totalReleases: "24", activeBlockers: "3" },
+                kpiAvgCompletionUnit: "days",
+                nextMonthHeader: "August 2025",
+                prioritiesSummary: "These are the key objectives the team will focus on in the upcoming month to drive strategic progress and deliver value, aligned with our overarching company and finance goals. This consolidated view provides a quick understanding of our strategic focus. Hover over a priority name for more details.",
+                navLinksHTML: `
+                    <ul class="flex flex-wrap border-b border-slate-200">
+                        <li><a href="#overview" class="nav-link active text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Overview</a></li>
+                        <li><a href="#workload" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Workload Deep Dive</a></li>
+                        <li><a href="#strategy" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Strategic Progression</a></li>
+                        <li><a href="#releases" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Product Releases</a></li>
+                        <li><a href="#priorities" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Priorities</a></li>
+                    </ul>
+                `,
+                prioritiesContentHTML: `
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-2" id="priorities-header">Priorities for the Coming Period (August 2025)</h2>
+                        <p class="text-slate-600 max-w-3xl font-semibold" id="priorities-summary">These are the key objectives the team will focus on in the upcoming month to drive strategic progress and deliver value, aligned with our overarching company and finance goals. This consolidated view provides a quick understanding of our strategic focus. Hover over a priority name for more details.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 overflow-x-auto">
+                        <table class="w-full text-left border-collapse priority-table">
+                            <thead>
+                                <tr>
+                                    <th class="w-[15%]">Company Goal</th>
+                                    <th class="w-[14%]">Working Capital</th>
+                                    <th class="w-[14%]">Overhead Automation</th>
+                                    <th class="w-[14%]">Report Automation</th>
+                                    <th class="w-[14%]">People Focus</th>
+                                    <th class="w-[14%]">Margin Control</th>
+                                    <th class="w-[14%]">Efficiency Enhancement</th>
+                                    <th class="w-[13%]">Team</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                `,
+                strategicProgression: [
+                    { name: "Auto Pay", current: 84, previous: 84, lastYear: 17, type: "percentage", improvement: "Remained at 84% following last month." },
+                    { name: "Auto Invoice", current: 28, previous: 29, lastYear: 32, type: "percentage", improvement: "Moved from 29% last month to 28% this month (32% this month last year)." },
+                    { name: "Auto Invoice @ Completion", current: 40, previous: 41, lastYear: null, type: "percentage", improvement: "Moved from 41% last month to 40% this month." },
+                    { name: "Travel Ledger Processed Volume", current: 48, previous: 64, lastYear: null, type: "percentage", improvement: "Down to 48% from 64% in June and 71% in May due to missed statements." }
+                ],
+                achievements: [
+                    { summary: "Streamlined Ski Supplier Outbounding & Travel Ledger Efficiency", description: "Collaborated with Ski to outbound all suppliers, establishing an efficient tracking process, and work with Travel Ledger to identify efficiency gaps for future improvements." },
+                    { summary: "Invoice Automation Process Adapted for Late Bookings", description: "Adapted the invoice automation process to handle late evening bookings; deployment approval is pending." },
+                    { summary: "New Tableau Data Source for Supplier Invoices", description: "Established a new Tableau data source for supplier invoice detail, leading to the closure of several related tickets." },
+                    { summary: "Paywise Reporting Support Plan Agreed", description: "A two-sprint period has been agreed upon with Data & BI to address support needs for Paywise reporting." }
+                ],
+                blockers: [
+                    { type: "❗", title: "Dependency: Critical Path on Dan Clay", description: "Multiple workstreams are critically dependent on Dan Clay, including efforts outside of standard project deliverables." },
+                    { type: "❓", title: "Decision Required: Align Finance Goals with Company Strategy", description: "A clear definition of finance-specific goals is needed to ensure alignment with overall company strategy for Q4 and 2026, enabling the finalization and agreement of a development roadmap with IT. This decision requires input from Lorna Vincent and Antony Fulcher." },
+                    { type: "⚠️", title: "Risk Mitigation: August Focus on Strategic Work", description: "A key risk for August is that both development teams are committing to a wide spread of work with substantial value. It is crucial to ensure that the Finance Product team can maintain its focus on strategic initiatives." }
+                ],
+                jira: {
+                    workloadLabels: ["BAU", "Strategic Work", "Non Strategic Project", "Operational Essential"], workloadCounts: [15, 3, 3, 3],
+                    requestorLabels: ["Transactional Processing", "Reconciliation", "None", "Lorna Vincent", "Compliance", "Customer Care", "Sales"], requestorCounts: [8, 5, 4, 3, 2, 1, 1],
+                    releaseTypeLabels: ["Bug Investigation", "New Report", "New Data Source", "Manual Report", "Insights", "Report Amendment", "Maintenance", "Support"], releaseTypeCounts: [6, 7, 2, 4, 2, 3, 1, 1],
+                    releases: [{"Summary": "INC0064222 - Duplicated Invoice Load", "Requestor": "Transactional Processing", "Created Date": "02/07/2025", "Resolved Date": "08/07/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "SKI TM Customer Payments", "Requestor": "Transactional Processing", "Created Date": "04/06/2025", "Resolved Date": "17/06/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "INC0063787 - Duplicated Records in DWH ETL from dbo.invoice", "Requestor": "Transactional Processing", "Created Date": "03/06/2025", "Resolved Date": "18/06/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Customer are incorrectly being charged fees on their payment plans", "Requestor": "Transactional Processing", "Created Date": "07/05/2025", "Resolved Date": "21/07/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Document Travel Ledger Auto Pay Fields", "Requestor": "None", "Created Date": "15/07/2025", "Resolved Date": "24/07/2025", "Work Type": "BAU", "Request Type": "Insights", "is_key_release": false}, {"Summary": "Create Pre-Paywise Enett Excel with Supplier Reference and Booking ID", "Requestor": "None", "Created Date": "22/05/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "Insights", "is_key_release": false}, {"Summary": "Aldo Zilli Group Query", "Requestor": "Reconciliation", "Created Date": "14/07/2025", "Resolved Date": "21/07/2025", "Work Type": "BAU", "Request Type": "Support", "is_key_release": false}, {"Summary": "Stop FTP imports of Enett data to SupplierPayment.dbo.payment_gold", "Requestor": "None", "Created Date": "25/06/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "Maintenance", "is_key_release": false}, {"Summary": "Tracey - Expected Commissions Report Rerun", "Requestor": "Reconciliation", "Created Date": "01/07/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Create Tableau Data Source for Active Invoice Values By Supplier Reference", "Requestor": "Transactional Processing", "Created Date": "01/04/2025", "Resolved Date": "24/06/2025", "Work Type": "BAU", "Request Type": "New Data Source", "is_key_release": true}, {"Summary": "Bonus Commission Report", "Requestor": "Reconciliation", "Created Date": "23/07/2025", "Resolved Date": "23/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": true}, {"Summary": "Protected Commissions report", "Requestor": "Reconciliation", "Created Date": "22/07/2025", "Resolved Date": "22/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": true}, {"Summary": "Accounts Self-Bill V2", "Requestor": "Transactional Processing", "Created Date": "23/07/2025", "Resolved Date": "24/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": true}, {"Summary": "Expected Commissions Report - Self-Service", "Requestor": "Reconciliation", "Created Date": "15/07/2025", "Resolved Date": "16/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Setup Sustainable VAT/Commission Errors Report - Invoicing", "Requestor": "Transactional Processing", "Created Date": "23/06/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Failed Tokenised Payments Report", "Requestor": "Customer Care", "Created Date": "20/05/2025", "Resolved Date": "11/06/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Create Multi-Currency Bookings Report", "Requestor": "Reconciliation", "Created Date": "04/04/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Build a report to track commission refunds from Virgin Voyages", "Requestor": "Reconciliation", "Created Date": "26/03/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "QA Update Form - Scoring Issue", "Requestor": "Sales", "Created Date": "23/06/2025", "Resolved Date": "24/06/2025", "Work Type": "BAU", "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Invoicing OT - KPI Workbook Support", "Requestor": "Transactional Processing", "Created Date": "10/06/2025", "Resolved Date": "11/06/2025", "Work Type": "BAU", "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Build Dynamic Pending Tab in INR Report with Weekly Breakdown and Stats Summary", "Requestor": "Transactional Processing", "Created Date": "16/05/2025", "Resolved Date": "24/06/2025", "Work Type": "BAU", "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Reconcile and Correct RCL Group ID: 2462058", "Requestor": "Reconciliation", "Created Date": "26/06/2025", "Resolved Date": "26/06/2025", "Work Type": "BAU", "Request Type": "Support", "is_key_release": false}, {"Summary": "Share Tracker Update with Travel Ledger", "Requestor": "None", "Created Date": "27/06/2025", "Resolved Date": "15/07/2025", "Work Type": "Non Strategic Project", "Request Type": "Insights", "is_key_release": false}, {"Summary": "Provide Cashflow Report Update - JUN 25", "Requestor": "Lorna Vincent", "Created Date": "08/07/2025", "Resolved Date": "09/07/2025", "Work Type": "Non Strategic Project", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Doddle Support Ticket - Payment Search Slowness", "Requestor": "Transactional Processing", "Created Date": "22/04/2025", "Resolved Date": "27/06/2025", "Work Type": "Operational Essential", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "CAA RCN Return - Monthly", "Requestor": "Compliance", "Created Date": "30/06/2025", "Resolved Date": "14/07/2025", "Work Type": "Operational Essential", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Quarterly Stats - LV 160725", "Requestor": "Lorna Vincent", "Created Date": "16/07/2025", "Resolved Date": "16/07/2025", "Work Type": "Strategic Work", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Board Cashflow Report - 08 Jul 25", "Requestor": "Lorna Vincent", "Created Date": "08/07/2025", "Resolved Date": "09/07/2025", "Work Type": "Strategic Work", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Estabish Tableau Data Source for Finance KPI Workbook", "Requestor": "None", "Created Date": "11/06/2025", "Resolved Date": "11/06/2025", "Work Type": "Strategic Work", "Request Type": "New Data Source", "is_key_release": true}]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '60%',
-                    plugins: {
-                        legend: chartLegends,
-                        tooltip: chartTooltip
-                    }
-                }
-            });
+                priorities: [
+                    { "Company Goal": "Cross-functional / Finance Specific", "Working Capital": { "name": "Pipeline Monies Reporting", "description": "Finalize Pipeline Monies Reporting: Ensure accurate reporting of pipeline monies position by finalizing dataset testing and report development.", "team": "Data & BI", "isTopFocus": true }, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null },
+                    { "Company Goal": "Gain Efficiency", "Working Capital": null, "Overhead Automation": [ { "name": "Late Booking Invoicing", "description": "Automate Late Evening Booking Invoicing: Deploy July's work to enable automatic invoicing for late evening bookings.", "team": "Finance" }, { "name": "Offline Ancillary Automation", "description": "Offline Ancillary Invoice Automation: Build a process to capture API responses for ancillaries that were booked online, ensuring we can still automatically invoice.", "team": "Finance" } ], "Report Automation": { "name": "Cost-to-Serve Dashboard", "description": "Establish Finance Cost-to-Serve Dashboard: Build an automated dashboard to provide a tangible metric to monitor our progress with our efficiency enhancements.", "team": "Finance" }, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": { "name": "Paywise Data Enhance", "description": "Enhance Paywise Data & Performance: Improve Paywise data availability, reporting view speed, and content for users.", "team": "Data & BI" } },
+                    { "Company Goal": "Go Global", "Working Capital": null, "Overhead Automation": { "name": "Booking Success Rate", "description": "Improve Booking Success Rate: Finalize reporting to identify reasons for failed/unattempted bookings, aiming to increase API booking percentage and invoice automation.", "team": "Finance" }, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null },
+                    { "Company Goal": "Growing Online", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null },
+                    { "Company Goal": "Put People First", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": { "name": "Launch Staff Circle", "description": "Launch Staff Circle within Finance Product: Initiate the Staff Circle program to prioritize people-centric initiatives within the team.", "team": "Finance" }, "Margin Control": null, "Efficiency Enhancement": null },
+                    { "Company Goal": "Increase Margin", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": { "name": "Override Commissions Report", "description": "Report On-Invoice Override Commissions: Develop reports to highlight instances where on-invoice override commissions were not loaded, to minimize dilution and identify potential overpayments.", "team": "Finance" }, "Efficiency Enhancement": null },
+                    { "Company Goal": "Build Loyalty", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null }
+                ]
+            }
+        };
 
-            // Populate Key Achievements
-            const keyAchievementsList = document.getElementById('key-achievements-list');
-            keyAchievementsList.innerHTML = '';
-            keyAchievements.forEach(achievement => {
-                const li = document.createElement('li');
-                li.className = 'flex items-start';
-                li.innerHTML = `
+        // Determine the order of months (Latest first for default)
+        const MONTH_ORDER = ["SEP2025", "AUG2025", "JUL2025"];
+        const DEFAULT_MONTH = MONTH_ORDER[0];
+
+        // Global variables to store Chart instances for updates
+        let workloadChartInstance = null;
+        let requestorsChartInstance = null;
+        let releaseTypeChartInstance = null;
+        
+        // --- RENDERING FUNCTIONS ---
+        // Helper to destroy old chart instances
+        function destroyChartInstances() {
+            if (workloadChartInstance) workloadChartInstance.destroy();
+            if (requestorsChartInstance) requestorsChartInstance.destroy();
+            if (releaseTypeChartInstance) releaseTypeChartInstance.destroy();
+            workloadChartInstance = null;
+            requestorsChartInstance = null;
+            releaseTypeChartInstance = null;
+        }
+
+        function updateKPIs(data) {
+            document.getElementById('report-period').textContent = `Reporting Period: For the month of ${data.reportDate}`;
+            
+            const kpiContainer = document.getElementById('kpi-container');
+            kpiContainer.innerHTML = `
+                <div class="kpi-card bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                    <h3 class="text-sm font-medium text-slate-500">Strategic & Tactical Work</h3>
+                    <p class="text-4xl font-bold text-amber-600 mt-2">${data.kpis.strategicTactical}</p>
+                    <p class="text-xs text-slate-400 mt-1">of all work</p>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                    <h3 class="text-sm font-medium text-slate-500">Avg. Completion Time</h3>
+                    <p class="text-4xl font-bold text-slate-800 mt-2">${data.kpis.avgCompletion} <span class="text-2xl">${data.kpiAvgCompletionUnit}</span></p>
+                    <p class="text-xs text-slate-400 mt-1">for all completed work</p>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                    <h3 class="text-sm font-medium text-slate-500">Total Releases</h3>
+                    <p class="text-4xl font-bold text-slate-800 mt-2">${data.kpis.totalReleases}</p>
+                    <p class="text-xs text-slate-400 mt-1">total releases</p>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                    <h3 class="text-sm font-medium text-slate-500">Active Blockers</h3>
+                    <p class="text-4xl font-bold ${data.kpis.activeBlockers > 1 ? 'text-red-600' : 'text-slate-800'} mt-2">${data.kpis.activeBlockers}</p>
+                    <p class="text-xs text-slate-400 mt-1">requiring stakeholder action/decision</p>
+                </div>
+            `;
+        }
+
+        function populateLists(data) {
+            // Key Achievements
+            const achievementsList = document.getElementById('key-achievements-list');
+            achievementsList.innerHTML = data.achievements.map(item => `
+                <li class="flex items-start">
                     <span class="text-green-500 mr-3 mt-1">✔</span>
                     <div>
-                        <h4 class="font-semibold">${achievement.summary}</h4>
-                        <p class="text-slate-600 text-sm">${achievement.description}</p>
+                        <h4 class="font-semibold">${item.summary}</h4>
+                        <p class="text-slate-600 text-sm">${item.description}</p>
                     </div>
-                `;
-                keyAchievementsList.appendChild(li);
-            });
+                </li>
+            `).join('');
 
-            // Populate Blockers & Decisions
+            // Blockers & Decisions
             const blockersDecisionsList = document.getElementById('blockers-decisions-list');
-            blockersDecisionsList.innerHTML = '';
-            blockersDecisions.forEach(item => {
-                const li = document.createElement('li');
-                li.className = 'flex items-start';
-                li.innerHTML = `
+            blockersDecisionsList.innerHTML = data.blockers.map(item => `
+                <li class="flex items-start">
                     <span class="${item.type === '❗' ? 'text-red-500' : item.type === '❓' ? 'text-blue-500' : 'text-orange-500'} mr-3 mt-1">${item.type}</span>
                     <div>
                         <h4 class="font-semibold">${item.title}</h4>
                         <p class="text-slate-600 text-sm">${item.description}</p>
                     </div>
+                </li>
+            `).join('');
+            
+            // Look Ahead (only applies to AUG2025 structure)
+            const lookAheadSection = document.getElementById('ahead');
+            const lookAheadContent = document.getElementById('look-ahead-content');
+            
+            if (data.ahead) {
+                lookAheadSection.classList.remove('hidden');
+                lookAheadContent.innerHTML = data.ahead.map(group => `
+                    <li>
+                        <h4 class="font-semibold text-lg underline">${group.status}</h4>
+                        <ul class="list-disc list-inside ml-4 space-y-1">
+                            ${group.items.map(item => `
+                                <li><strong>${item.key}</strong> - ${item.summary} (Created: ${item.created})</li>
+                            `).join('')}
+                        </ul>
+                    </li>
+                `).join('');
+            } else {
+                lookAheadSection.classList.add('hidden');
+            }
+        }
+
+        function populateStrategicProgression(data) {
+            const listContainer = document.getElementById('strategic-progression-list');
+            
+            if (!data.strategicProgression) {
+                // Scenario for SEP2025: Strategic Progression is OFFLINE
+                listContainer.innerHTML = `
+                    <div class="offline-marker">
+                        <strong>Strategic Progression is an OFFLINE Report (Data not available in this format)</strong>
+                    </div>
                 `;
-                blockersDecisionsList.appendChild(li);
+                return;
+            }
+
+            // Scenario for JUL2025/AUG2025: Strategic Progression is AVAILABLE
+            listContainer.innerHTML = data.strategicProgression.map(item => {
+                const getTrendData = (current, compare) => {
+                    if (current === null || compare === null) return { icon: '━', color: 'text-slate-500', diff: 'N/A' };
+                    const diff = current - compare;
+                    const diffValue = diff !== 0 ? Math.abs(diff) : 0;
+                    if (diff > 0) return { icon: '▲', color: 'text-green-600', diff: `${diffValue}%` };
+                    if (diff < 0) return { icon: '▼', color: 'text-red-600', diff: `${diffValue}%` };
+                    return { icon: '━', color: 'text-slate-500', diff: 'N/A' };
+                };
+                
+                const prevTrend = getTrendData(item.current, item.previous);
+                const lastYearTrend = getTrendData(item.current, item.lastYear);
+                
+                const barWidth = item.current;
+
+                return `
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
+                        <div class="flex justify-between items-baseline mb-1">
+                            <span class="text-base font-medium text-slate-700">${item.name}</span>
+                            <span class="text-lg font-bold text-slate-900 current-value-display">${item.current}%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 rounded-full h-1">
+                            <div class="progression-bar" style="width: ${barWidth}%"></div>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-2">
+                            <span class="trend-comparison" data-compare-to="previous" data-label="vs. Last Month">vs. Last Month: <span class="font-bold ${prevTrend.color}">${prevTrend.icon} ${prevTrend.diff}</span></span> | 
+                            <span class="trend-comparison" data-compare-to="last-year" data-label="vs. Last Year">vs. Last Year: <span class="font-bold ${lastYearTrend.color}">${lastYearTrend.icon} ${lastYearTrend.diff}</span></span>
+                            <br>Tangible Improvement: ${item.improvement}
+                        </p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateCharts(jiraData) {
+            destroyChartInstances(); // Destroy existing charts first
+
+            const chartConfig = {
+                tooltip: {
+                    bodyFont: { size: 14 }, titleFont: { size: 16, weight: 'bold' }, padding: 12,
+                    backgroundColor: 'rgba(15, 23, 42, 0.8)', boxPadding: 4,
+                },
+                legends: {
+                    position: 'bottom', labels: { font: { size: 12, family: 'Inter' }, padding: 20, color: '#475569' }
+                }
+            };
+
+            // Workload Breakdown Chart (Doughnut)
+            const workloadCtx = document.getElementById('workloadChart').getContext('2d');
+            workloadChartInstance = new Chart(workloadCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: jiraData.workloadLabels,
+                    datasets: [{
+                        label: 'Workload %',
+                        data: jiraData.workloadCounts,
+                        backgroundColor: ['#f59e0b', '#64748b', '#94a3b8', '#cbd5e1', '#71717a'],
+                        borderColor: '#f8fafc', borderWidth: 4, hoverOffset: 8
+                    }]
+                },
+                options: { plugins: { legend: chartConfig.legends, tooltip: chartConfig.tooltip } }
             });
 
+            // Primary Requestors Chart (Bar)
+            const sortedRequestors = jiraData.requestorLabels.map((label, i) => ({ label, count: jiraData.requestorCounts[i] })).sort((a, b) => b.count - a.count);
+            const requestorsCtx = document.getElementById('requestorsChart').getContext('2d');
+            requestorsChartInstance = new Chart(requestorsCtx, {
+                type: 'bar',
+                data: {
+                    labels: sortedRequestors.map(r => r.label),
+                    datasets: [{
+                        label: 'Number of Requests',
+                        data: sortedRequestors.map(r => r.count),
+                        backgroundColor: '#f59e0b', borderColor: '#d97706', borderWidth: 1, borderRadius: 4,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', plugins: { legend: { display: false }, tooltip: chartConfig.tooltip },
+                    scales: { x: { beginAtZero: true, grid: { display: false } }, y: { grid: { color: '#e2e8f0' } } }
+                }
+            });
+            
+            // Product Release Types Chart (Doughnut)
+            const releaseTypeCtx = document.getElementById('releaseTypeChart').getContext('2d');
+            releaseTypeChartInstance = new Chart(releaseTypeCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: jiraData.releaseTypeLabels,
+                    datasets: [{
+                        label: 'Number of Releases',
+                        data: jiraData.releaseTypeCounts,
+                        backgroundColor: ['#f59e0b', '#d97706', '#a16207', '#64748b', '#94a3b8', '#475569', '#71717a', '#334155'],
+                        borderColor: '#f8fafc', borderWidth: 4, hoverOffset: 8
+                    }]
+                },
+                options: { plugins: { legend: chartConfig.legends, tooltip: chartConfig.tooltip } }
+            });
 
-            // Populate Product Releases Section
+            document.getElementById('total-tickets-closed').textContent = jiraData.releases.length;
+        }
+
+        function populateReleases(data) {
+            document.getElementById('releases-header').textContent = `Recent Product Releases (${data.reportDate})`;
             const releaseListContainer = document.getElementById('release-list-container');
             releaseListContainer.innerHTML = '';
-            
-            const keyReleases = ["FCP-302", "FCP-406", "FCP-384"];
-            const completedTicketsWithResolvedDate = jiraData.filter(ticket => ticket.Status === 'Done' && ticket.Resolved);
 
-            const groupedReleases = {};
-            completedTicketsWithResolvedDate.forEach(ticket => {
-                const requestType = ticket["Request Type"];
-                if (!groupedReleases[requestType]) {
-                    groupedReleases[requestType] = [];
-                }
-                groupedReleases[requestType].push(ticket);
-            });
+            const groupedReleases = data.jira.releases.reduce((groups, ticket) => {
+                const type = ticket["Request Type"];
+                if (!groups[type]) groups[type] = [];
+                groups[type].push(ticket);
+                return groups;
+            }, {});
 
             for (const type in groupedReleases) {
                 const releaseGroupDiv = document.createElement('div');
@@ -1210,147 +634,205 @@
                 groupedReleases[type].forEach(ticket => {
                     const li = document.createElement('li');
                     li.className = 'release-item';
-                    const isKeyRelease = keyReleases.includes(ticket["Issue key"]);
-                    const star = isKeyRelease ? '<span class="key-release-star">⭐</span>' : '';
-                    const resolvedDate = ticket.Resolved ? ticket.Resolved.split(' ')[0] : 'N/A';
-                    li.innerHTML = `
-                        ${star}<strong>${ticket.Summary}</strong><br>
-                        <span class="text-xs text-slate-500">Requestor: ${ticket.Requestor || 'N/A'} | Created: ${ticket.Created.split(' ')[0]} | Resolved: ${resolvedDate} | Work Type: ${ticket["Work Type"]} | Story Points: ${ticket.StoryPoints}</span>
-                    `;
+                    const star = ticket.is_key_release ? '<span class="key-release-star">⭐</span>' : '';
+                    const description = `Requestor: ${ticket.Requestor} | Created: ${ticket['Created Date']} | Resolved: ${ticket['Resolved Date']} | Work Type: ${ticket['Work Type']} | SP: ${ticket['Story Points'] !== undefined ? ticket['Story Points'] : '--'}`; // Handle missing SP
+                    li.innerHTML = `${star}${description}<strong>${ticket.Summary}</strong>`;
                     ul.appendChild(li);
                 });
                 releaseListContainer.appendChild(releaseGroupDiv);
             }
+        }
 
+        function populatePriorities(data) {
+            const prioritiesSection = document.getElementById('priorities');
+            prioritiesSection.innerHTML = data.prioritiesContentHTML;
 
-            // Function to populate the priorities table
-            function populatePrioritiesTable() {
-                const tableBody = document.querySelector('#priorities .priority-table tbody');
-                tableBody.innerHTML = ''; 
+            const tableBody = prioritiesSection.querySelector('.priority-table tbody');
+            tableBody.innerHTML = '';
 
-                const companyGoalOrder = [
-                    "Cross-functional / Finance Specific",
-                    "Gain Efficiency",
-                    "Go Global",
-                    "Growing Online",
-                    "Put People First",
-                    "Increase Margin",
-                    "Build Loyalty"
-                ];
+            const companyGoalOrder = [
+                "Cross-functional / Finance Specific", "Gain Efficiency", "Go Global", "Growing Online",
+                "Put People First", "Increase Margin", "Build Loyalty"
+            ];
 
-                const financeGoalColumns = [
-                    "Working Capital",
-                    "Overhead Automation",
-                    "Report Automation",
-                    "People Focus",
-                    "Margin Control",
-                    "Efficiency Enhancement"
-                ];
+            const financeGoalColumns = [
+                "Working Capital", "Overhead Automation", "Report Automation", "People Focus",
+                "Margin Control", "Efficiency Enhancement"
+            ];
 
-                const teamColorMap = {
-                    "Data & BI": "team-data-bi",
-                    "Booking & Fulfilment": "team-booking-fulfilment",
-                    "Finance": "team-finance",
-                    "none": "priority-bubble"
-                };
+            const teamColorMap = {
+                "Data & BI": "team-data-bi", "Booking & Fulfilment": "team-booking-fulfilment", "Finance": "team-finance",
+                "CRM": "team-crm", "B&F": "team-booking-fulfilment", "none": "priority-bubble"
+            };
 
-                const mappedPriorities = {};
-                prioritiesData.forEach(p => {
-                    const companyGoal = p["Company Goal"];
-                    mappedPriorities[companyGoal] = mappedPriorities[companyGoal] || {};
-                    financeGoalColumns.forEach(financeGoal => {
-                        if (p[financeGoal]) {
-                            if (Array.isArray(p[financeGoal])) {
-                                mappedPriorities[companyGoal][financeGoal] = p[financeGoal];
-                            } else {
-                                mappedPriorities[companyGoal][financeGoal] = [p[financeGoal]];
-                            }
-                        }
-                    });
+            data.priorities.forEach(p => {
+                const row = document.createElement('tr');
+                const companyGoalCell = document.createElement('td');
+                companyGoalCell.innerHTML = `<span class="font-semibold text-slate-800">${p["Company Goal"]}</span>`;
+                row.appendChild(companyGoalCell);
+
+                financeGoalColumns.forEach(financeGoal => {
+                    const td = document.createElement('td');
+                    const priorityData = p[financeGoal];
+                    if (priorityData && priorityData.name) {
+                        const teamClass = teamColorMap[priorityData.team] || 'priority-bubble';
+                        const topFocusClass = priorityData.isTopFocus ? 'priority-top-focus' : '';
+                        const bubbleSpan = document.createElement('span');
+                        bubbleSpan.className = `priority-bubble ${teamClass} ${topFocusClass}`.trim();
+                        bubbleSpan.setAttribute('data-tooltip-content', priorityData.description);
+                        // Use split to shorten long priority names for display
+                        const shortName = priorityData.name.split(' - ')[0].trim();
+                        bubbleSpan.textContent = shortName;
+                        td.appendChild(bubbleSpan);
+                    }
+                    row.appendChild(td);
                 });
 
-                companyGoalOrder.forEach(companyGoal => {
-                    const row = document.createElement('tr');
-                    
-                    const companyGoalCell = document.createElement('td');
-                    companyGoalCell.innerHTML = `<span class="font-semibold text-slate-800">${companyGoal}</span>`;
-                    row.appendChild(companyGoalCell);
-
-                    financeGoalColumns.forEach(financeGoal => {
-                        const td = document.createElement('td');
-                        const prioritiesForCell = mappedPriorities[companyGoal]?.[financeGoal] || [];
-
-                        prioritiesForCell.forEach(priority => {
-                            if (priority) {
-                                const teamClass = teamColorMap[priority.team] || ''; 
-                                const topFocusClass = priority.isTopFocus ? 'priority-top-focus' : '';
-                                
-                                const bubbleSpan = document.createElement('span');
-                                bubbleSpan.className = `priority-bubble ${teamClass} ${topFocusClass}`.trim(); 
-                                bubbleSpan.setAttribute('data-tooltip-content', priority.description);
-                                bubbleSpan.textContent = priority.name;
-                                td.appendChild(bubbleSpan);
-                            }
-                        });
-                        row.appendChild(td);
-                    });
-
-                    const teamCell = document.createElement('td');
-                    row.appendChild(teamCell);
-
-                    tableBody.appendChild(row);
-                });
-            }
-
-            populatePrioritiesTable();
-
-
-            // Tooltip functionality for Priority Bubbles (now using one global tooltip div)
+                const teamCell = document.createElement('td');
+                row.appendChild(teamCell);
+                tableBody.appendChild(row);
+            });
+            // Re-attach tooltip listeners after updating the DOM
+            attachTooltipListeners();
+        }
+        
+        function attachTooltipListeners() {
+            // Re-select tooltip elements after the DOM has been modified
             const customTooltip = document.getElementById('custom-tooltip');
-            let tooltipTimeout;
+            
+            // Remove existing listeners first to prevent duplicates
+            document.querySelectorAll('.priority-bubble').forEach(bubble => {
+                bubble.removeEventListener('mouseenter', bubble._mouseEnterHandler);
+                bubble.removeEventListener('mouseleave', bubble._mouseLeaveHandler);
+            });
 
             document.querySelectorAll('.priority-bubble').forEach(bubble => {
-                bubble.addEventListener('mouseenter', (e) => {
+                bubble._mouseEnterHandler = (e) => {
                     const content = e.target.dataset.tooltipContent;
                     if (content) {
-                        clearTimeout(tooltipTimeout); 
-                        tooltipTimeout = setTimeout(() => {
+                        clearTimeout(bubble.tooltipTimeout); // Clear timeout associated with this bubble
+                        bubble.tooltipTimeout = setTimeout(() => {
                             customTooltip.innerHTML = content;
-                            customTooltip.classList.remove('hidden');
-                            customTooltip.classList.add('visible'); 
+                            customTooltip.classList.add('visible'); customTooltip.classList.remove('hidden');
 
                             const rect = e.target.getBoundingClientRect();
-                            const scrollX = window.scrollX || window.pageXOffset;
                             const scrollY = window.scrollY || window.pageYOffset;
+                            let leftPos = rect.left + (rect.width / 2) - (customTooltip.offsetWidth / 2);
+                            let topPos = rect.top + scrollY - customTooltip.offsetHeight - 10;
 
-                            let leftPos = rect.left + scrollX + (rect.width / 2) - (customTooltip.offsetWidth / 2);
-                            let topPos = rect.top + scrollY - customTooltip.offsetHeight - 10; 
-
-                            if (leftPos < 0) {
-                                leftPos = 10; 
-                            }
-                            if (leftPos + customTooltip.offsetWidth > window.innerWidth) {
-                                leftPos = window.innerWidth - customTooltip.offsetWidth - 10; 
-                            }
-                            if (topPos < 0 && rect.bottom + scrollY + customTooltip.offsetHeight + 10 < window.innerHeight) {
-                                topPos = rect.bottom + scrollY + 10; 
-                            } else if (topPos < 0) { 
-                                topPos = 10;
-                            }
-
+                            if (leftPos < 0) leftPos = 10;
+                            if (leftPos + customTooltip.offsetWidth > window.innerWidth) leftPos = window.innerWidth - customTooltip.offsetWidth - 10;
+                            if (topPos < 0) topPos = rect.bottom + scrollY + 10;
 
                             customTooltip.style.left = `${leftPos}px`;
                             customTooltip.style.top = `${topPos}px`;
-
-                        }, 500); 
+                        }, 500);
                     }
-                });
+                };
 
-                bubble.addEventListener('mouseleave', () => {
-                    clearTimeout(tooltipTimeout);
-                    customTooltip.classList.remove('visible'); 
-                    customTooltip.classList.add('hidden');
-                });
+                bubble._mouseLeaveHandler = () => {
+                    clearTimeout(bubble.tooltipTimeout);
+                    customTooltip.classList.remove('visible'); customTooltip.classList.add('hidden');
+                };
+
+                bubble.addEventListener('mouseenter', bubble._mouseEnterHandler);
+                bubble.addEventListener('mouseleave', bubble._mouseLeaveHandler);
+            });
+        }
+        
+        function setupNavigation(data) {
+            const navContainer = document.getElementById('main-nav-container');
+            const mainContent = document.getElementById('content');
+            
+            // Insert the correct navigation HTML
+            navContainer.innerHTML = data.navLinksHTML;
+            
+            // Re-attach listeners to the new navigation links
+            const navLinks = navContainer.querySelectorAll('.nav-link');
+            const contentSections = mainContent.querySelectorAll('.content-section');
+            
+            const navigateTo = (hash) => {
+                // Ensure all tabs are non-active and all sections are hidden initially
+                navLinks.forEach(link => link.classList.remove('active'));
+                contentSections.forEach(section => section.classList.add('hidden'));
+
+                // Set active link and visible section based on hash
+                const targetId = hash.substring(1);
+                const targetLink = navContainer.querySelector(`[href="${hash}"]`);
+                const targetSection = document.getElementById(targetId);
+
+                if (targetLink) targetLink.classList.add('active');
+                if (targetSection) targetSection.classList.remove('hidden');
+            };
+
+            navLinks.forEach(link => {
+                link.removeEventListener('click', link._navClickHandler); 
+                
+                link._navClickHandler = (e) => {
+                    e.preventDefault();
+                    const targetHash = e.currentTarget.hash;
+                    navigateTo(targetHash);
+                    window.history.pushState(null, null, targetHash);
+                };
+                
+                link.addEventListener('click', link._navClickHandler);
+            });
+            
+            return navigateTo;
+        }
+
+        // Master function to render the entire dashboard for the given month
+        function renderDashboard(monthKey, initialHash) {
+            const data = ALL_MONTHLY_DATA[monthKey];
+            if (!data) return console.error("Data for month " + monthKey + " not found.");
+
+            // 1. Update the Navigation Bar structure and get the new navigateTo function
+            const navigateTo = setupNavigation(data);
+            
+            // 2. Update static elements (KPIs, Lists, Look Ahead Content)
+            updateKPIs(data);
+            populateLists(data);
+            
+            // 3. Update the Strategic Progression content (Handles visibility/data automatically)
+            populateStrategicProgression(data);
+            
+            // 4. Update dynamic sections (Releases, Priorities)
+            populateReleases(data);
+            populatePriorities(data);
+            
+            // 5. Update charts (Requires Chart.js to be loaded)
+            updateCharts(data.jira);
+
+            // 6. Navigate to the correct starting hash (or stay on the previously active one)
+            const currentHash = initialHash || window.location.hash || '#overview';
+            navigateTo(currentHash);
+        }
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // 1. Populate the month selector dropdown
+            const selector = document.getElementById('month-selector');
+            MONTH_ORDER.forEach(month => {
+                const option = document.createElement('option');
+                option.value = month;
+                option.textContent = month;
+                selector.appendChild(option);
+            });
+
+            // 2. Set default month and render the initial view
+            selector.value = DEFAULT_MONTH;
+            const initialHash = window.location.hash || '#overview';
+            renderDashboard(DEFAULT_MONTH, initialHash);
+
+            // 3. Add event listener for month change
+            selector.addEventListener('change', function() {
+                // Save the currently visible section hash
+                const currentActiveLink = document.querySelector('#main-nav-container .nav-link.active');
+                const activeHash = currentActiveLink ? currentActiveLink.hash : '#overview';
+
+                // Re-render dashboard with new month's data, forcing navigation to the last active hash
+                renderDashboard(selector.value, activeHash);
             });
         });
     </script>
