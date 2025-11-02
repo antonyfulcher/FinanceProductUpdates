@@ -81,7 +81,7 @@
         
         <header class="mb-8">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Finance Product & Analytics Update</h1>
-            <p class="text-slate-500 mt-1" id="report-period">Reporting Period: For the month of September 2025</p>
+            <p class="text-slate-500 mt-1" id="report-period">Reporting Period: For the month of October 2025</p>
         </header>
 
         <div class="mb-6 flex items-center justify-between">
@@ -124,7 +124,7 @@
                     <p class="text-slate-600 max-w-3xl">This section analyzes the team's effort allocation across completed work in the last month. The charts below illustrate how our time is divided between strategic initiatives and operational support, which business areas are our primary partners, and the types of product releases we are delivering. <br>
                     <span class="font-semibold">Total Tickets Closed This Month: <span class="text-amber-600" id="total-tickets-closed">--</span></span></p>
                 </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="grid grid-cols-1 lg:col-span-2 gap-8 items-center">
                     <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
                         <h3 class="text-xl font-bold text-slate-900 mb-4 text-center">Workload Breakdown by Type</h3>
                         <div class="chart-container"> <canvas id="workloadChart"></canvas> </div>
@@ -179,6 +179,515 @@
     <script>
         // --- CONSOLIDATED DATA FOR ALL MONTHS ---
         const ALL_MONTHLY_DATA = {
+            "OCT2025": {
+                "reportDate": "October 2025",
+                "kpis": {
+                    "strategicTactical": "63%",
+                    "avgCompletion": "20",
+                    "totalReleases": "29",
+                    "activeBlockers": "3"
+                },
+                "kpiAvgCompletionUnit": "days",
+                "nextMonthHeader": "November 2025",
+                "prioritiesSummary": "In October we focused on launching our COS Uploads Report Project, whilst continuing to maintain BAU support for Paywise. Secondary focus was on booking efficencies, invoicing autoamtion insights and improving the quality of our opening position data",
+                "navLinksHTML": "\n                    <ul class=\"flex flex-wrap border-b border-slate-200\">\n                        <li><a href=\"#overview\" class=\"nav-link active text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50\">Overview</a></li>\n                        <li><a href=\"#workload\" class=\"nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50\">Workload Deep Dive</a></li>\n                        <li><a href=\"#strategy\" class=\"nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50\">Strategic Progression</a></li>\n                        <li><a href=\"#releases\" class=\"nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50\">Product Releases</a></li>\n                        <li><a href=\"#priorities\" class=\"nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50\">Priorities</a></li>\n                        <li><a href=\"#ahead\" class=\"nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50\">A Look Ahead</a></li>\n                    </ul>\n                ",
+                "prioritiesContentHTML": "\n                    <div>\n                        <h2 class=\"text-2xl font-bold text-slate-900 mb-2\" id=\"priorities-header\">Priorities for the Coming Period (November 2025)</h2>\n                        <p class=\"text-slate-600 max-w-3xl font-semibold\" id=\"priorities-summary\">In October we focused on launching our COS Uploads Report Project, whilst continuing to maintain BAU support for Paywise. Secondary focus was on booking efficencies, invoicing autoamtion insights and improving the quality of our opening position data</p>\n                        <p class=\"text-slate-600 max-w-3xl\">These are the key objectives the team will focus on in the upcoming month to drive strategic progress and deliver value, aligned with our overarching company and finance goals. This consolidated view provides a quick understanding of our strategic focus. Hover over a priority name for more details.</p>\n                    </div>\n                    <div class=\"bg-white p-6 rounded-lg shadow-sm border border-slate-200 overflow-x-auto\">\n                        <table class=\"w-full text-left border-collapse priority-table\">\n                            <thead>\n                                <tr>\n                                    <th class=\"w-[15%]\">Company Goal</th>\n                                    <th class=\"w-[14%]\">Working Capital</th>\n                                    <th class=\"w-[14%]\">Overhead Automation</th>\n                                    <th class=\"w-[14%]\">Report Automation</th>\n                                    <th class=\"w-[14%]\">People Focus</th>\n                                    <th class=\"w-[14%]\">Margin Control</th>\n                                    <th class=\"w-[14%]\">Efficiency Enhancement</th>\n                                    <th class=\"w-[13%]\">Team</th> \n                                </tr>\n                            </thead>\n                            <tbody>\n                            </tbody>\n                        </table>\n                    </div>\n                ",
+                "strategicProgression": [
+                    {
+                        "name": "Auto Invoice",
+                        "current": 38,
+                        "previous": 32,
+                        "lastYear": 24,
+                        "type": "percentage",
+                        "improvement": "Increase of 7% so far as a result of launching offline ancillary autoamtion"
+                    },
+                    {
+                        "name": "Travel Ledger Processed Volume",
+                        "current": 65,
+                        "previous": 58,
+                        "lastYear": null,
+                        "type": "percentage",
+                        "improvement": "TIG (Lime & Aviate) onboarded in October resulting in a more consistent occurence of 60%+"
+                    }
+                ],
+                "achievements": [
+                    {
+                        "summary": "Reaping the benefits of offline ancillary automaton",
+                        "description": "Closing out our first month with a 7% [38%] increase in automation. Expect this to break 10% in October"
+                    },
+                    {
+                        "summary": "Finalised our Supplier Payment Opening Quality Work",
+                        "description": "£2.9m fluctuation post corrections, total of over 350k records adjusted."
+                    }
+                ],
+                "blockers": [
+                    {
+                        "type": "❗",
+                        "title": "Pipeline Reporting Dashboard",
+                        "description": "Unable to progress due to blocker with Dan Clay, working with the team to hand-over"
+                    },
+                    {
+                        "type": "❗",
+                        "title": "COS Uploads Report Comparison",
+                        "description": "Awaiting resolution on a data issue that currently blocks automated comparison job"
+                    },
+                    {
+                        "type": "❓",
+                        "title": "SAFI Charges",
+                        "description": "Awaiting for confirmation on next steps from Lorna, we were requested to go via the ideas forum with updated requirements"
+                    }
+                ],
+                "ahead": [
+                    {
+                        "status": "Prioritised for November",
+                        "items": [
+                            { "key": "FCP-350", "summary": "Princess Plus Unable To AutoBook", "created": "20/05/2025 14:14" },
+                            { "key": "FCP-531", "summary": "TL AutoPay Investigations", "created": "06/10/2025 09:13" },
+                            { "key": "FCP-451", "summary": "Doddle Support - Payment Movements - Pegasus Export - Apply *-1 Logic", "created": "22/08/2025 09:48" },
+                            { "key": "FCP-508", "summary": "Doddle Support - Not Matching On Surname", "created": "10/09/2025 09:37" },
+                            { "key": "FCP-516", "summary": "Live Book - Princess Transfer Pricing", "created": "24/09/2025 09:33" },
+                            { "key": "FCP-150", "summary": "Identify & Resolve Causation for Invoice Value discrepancy", "created": "25/02/2025 10:48" },
+                            { "key": "FCP-517", "summary": "LiveBook - Holland America Drinks Package", "created": "24/09/2025 09:52" },
+                            { "key": "FCP-504", "summary": "Doddle Support - eNett AutoPay Not Reporting", "created": "08/09/2025 12:55" },
+                            { "key": "FCP-489", "summary": "Automate Invoices Based on PW Internal Actions", "created": "02/09/2025 17:03" },
+                            { "key": "FCP-459", "summary": "MONITOR - Doddle Support - Transactions Not Assigned to a Booking ID", "created": "22/08/2025 14:04" },
+                            { "key": "FCP-453", "summary": "Doddle Support: Data Quality Issues in Staging Tables", "created": "22/08/2025 10:21" },
+                            { "key": "FCP-562", "summary": "Weighted Exchange Rate Query", "created": "24/10/2025 12:26" },
+                            { "key": "FCP-561", "summary": "Adjust FX Exchange Rate Usage In Paywise", "created": "24/10/2025 12:12" },
+                            { "key": "FCP-559", "summary": "Prevent Auto Reject On Refunds", "created": "23/10/2025 18:16" },
+                            { "key": "FCP-433", "summary": "Rebuild AutoPay Insights Dashboard", "created": "05/08/2025 13:52" },
+                            { "key": "FCP-563", "summary": "Previously Paid Calculating Incorrectly", "created": "24/10/2025 16:32" },
+                            { "key": "FCP-378", "summary": "PLACEHOLDER - Expected v Actual Commission Trend Identifier", "created": "12/06/2025 10:40" },
+                            { "key": "FCP-530", "summary": "Add Supplier Summary to Low Deposit Workbook", "created": "06/10/2025 09:08" }
+                        ]
+                    }
+                ],
+                "jira": {
+                    "workloadLabels": [
+                        "BAU",
+                        "Strategic Work",
+                        "Non Strategic Project",
+                        "Operational Essential"
+                    ],
+                    "workloadCounts": [
+                        14,
+                        14,
+                        0,
+                        1
+                    ],
+                    "requestorLabels": [
+                        "Transactional Processing",
+                        "Operations",
+                        "Compliance Team",
+                        "FP&A",
+                        "Finance Product",
+                        "Other",
+                        "Finance Leadership"
+                    ],
+                    "requestorCounts": [
+                        11,
+                        10,
+                        2,
+                        2,
+                        2,
+                        1,
+                        1
+                    ],
+                    "releaseTypeLabels": [
+                        "Report Amendment",
+                        "Support",
+                        "Bug Investigation",
+                        "Manual Report",
+                        "New Report",
+                        "Insights",
+                        "Maintenance",
+                        "New Data Source"
+                    ],
+                    "releaseTypeCounts": [
+                        6,
+                        5,
+                        5,
+                        4,
+                        4,
+                        2,
+                        0,
+                        0
+                    ],
+                    "releases": [
+                        {
+                            "Summary": "Outsystems AI Use Cases",
+                            "Requestor": "Other",
+                            "Created Date": "16/10/2025 18:00",
+                            "Resolved Date": "30/10/2025 14:13",
+                            "Work Type": "Strategic Work",
+                            "Story Points": 1,
+                            "Request Type": "Insights",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Add Currency Fields to INR Master",
+                            "Requestor": "Transactional Processing",
+                            "Created Date": "30/10/2025 14:03",
+                            "Resolved Date": "30/10/2025 14:04",
+                            "Work Type": "BAU",
+                            "Story Points": 0.5,
+                            "Request Type": "Report Amendment",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Exclude New INR Codes",
+                            "Requestor": "Transactional Processing",
+                            "Created Date": "23/10/2025 15:39",
+                            "Resolved Date": "30/10/2025 13:22",
+                            "Work Type": "BAU",
+                            "Story Points": 1,
+                            "Request Type": "Report Amendment",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Generate a Transactions Report for the Last 12 Months",
+                            "Requestor": "Compliance Team",
+                            "Created Date": "30/10/2025 12:41",
+                            "Resolved Date": "30/10/2025 12:41",
+                            "Work Type": "BAU",
+                            "Story Points": 1,
+                            "Request Type": "Manual Report",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "RCL Groups Training",
+                            "Requestor": "Transactional Processing",
+                            "Created Date": "02/10/2025 13:58",
+                            "Resolved Date": "30/10/2025 11:09",
+                            "Work Type": "BAU",
+                            "Story Points": 9.5,
+                            "Request Type": "Support",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Update Finance Cost to Serve Reporting",
+                            "Requestor": "FP&A",
+                            "Created Date": "20/10/2025 12:36",
+                            "Resolved Date": "26/10/2025 07:32",
+                            "Work Type": "BAU",
+                            "Story Points": 2,
+                            "Request Type": "Report Amendment",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "NCL Fly Cruise - Promotion Override",
+                            "Requestor": "Operations",
+                            "Created Date": "16/10/2025 18:04",
+                            "Resolved Date": "22/10/2025 15:09",
+                            "Work Type": "BAU",
+                            "Story Points": 0,
+                            "Request Type": "Support",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Doddle Support - Travel Ledger Ancillaries Brand Code Validation",
+                            "Requestor": "Transactional Processing",
+                            "Created Date": "17/09/2025 14:17",
+                            "Resolved Date": "21/10/2025 15:24",
+                            "Work Type": "BAU",
+                            "Story Points": 0,
+                            "Request Type": "Support",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Automatic Refresh of Non Attempt Reporting",
+                            "Requestor": "Operations",
+                            "Created Date": "27/08/2025 13:31",
+                            "Resolved Date": "17/10/2025 10:42",
+                            "Work Type": "Strategic Work",
+                            "Story Points": 0,
+                            "Request Type": "New Report",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Booking Efficiency Summary Reporting",
+                            "Requestor": "Operations",
+                            "Created Date": "09/09/2025 11:32",
+                            "Resolved Date": "17/10/2025 10:42",
+                            "Work Type": "Strategic Work",
+                            "Story Points": 0,
+                            "Request Type": "New Report",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Volume Reporting - Booking Efficencies 2.0",
+                            "Requestor": "Operations",
+                            "Created Date": "15/10/2025 11:54",
+                            "Resolved Date": "17/10/2025 09:25",
+                            "Work Type": "Strategic Work",
+                            "Story Points": 1,
+                            "Request Type": "New Report",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Paywise Connectivity Issue",
+                            "Requestor": "Transactional Processing",
+                            "Created Date": "15/10/2025 10:55",
+                            "Resolved Date": "17/10/2025 09:25",
+                            "Work Type": "Operational Essential",
+                            "Story Points": 1,
+                            "Request Type": "Support",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Doddle Support - Wrong PT_TRVALUE in Pegasus Export",
+                            "Requestor": "Transactional Processing",
+                            "Created Date": "02/09/2025 11:34",
+                            "Resolved Date": "16/10/2025 16:36",
+                            "Work Type": "BAU",
+                            "Story Points": 0,
+                            "Request Type": "Bug Investigation",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Doddle Support: eNett - Fails Booking ID Validation",
+                            "Requestor": "Transactional Processing",
+                            "Created Date": "22/08/2025 14:07",
+                            "Resolved Date": "16/10/2025 14:55",
+                            "Work Type": "BAU",
+                            "Story Points": 0,
+                            "Request Type": "Bug Investigation",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Doddle Support - Previous Payments Not Summing Up in AutoPay for TL ANC",
+                            "Requestor": "Transactional Processing",
+                            "Created Date": "06/10/2025 14:29",
+                            "Resolved Date": "16/10/2025 14:54",
+                            "Work Type": "BAU",
+                            "Story Points": 0,
+                            "Request Type": "Bug Investigation",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Finance Updates -Q3 Outcomes, Q4 Strategy ",
+                            "Requestor": "Finance Leadership",
+                            "Created Date": "13/10/2025 08:46",
+                            "Resolved Date": "15/10/2025 08:26",
+                            "Work Type": "Strategic Work",
+                            "Story Points": 0,
+                            "Request Type": "Manual Report",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Add Further BookingAPI Conditions to API Discovery Dashboard",
+                            "Requestor": "Operations",
+                            "Created Date": "13/10/2025 11:18",
+                            "Resolved Date": "13/10/2025 14:03",
+                            "Work Type": "Strategic Work",
+                            "Story Points": 1.5,
+                            "Request Type": "Report Amendment",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Add Amendments overtime to APB",
+                            "Requestor": "Operations",
+                            "Created Date": "13/10/2025 12:10",
+                            "Resolved Date": "13/10/2025 12:10",
+                            "Work Type": "Strategic Work",
+                            "Story Points": 0.5,
+                            "Request Type": "Report Amendment",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "API Discovery Session - Lizzy ",
+                            "Requestor": "Operations",
+                            "Created Date": "13/10/2025 08:48",
+                            "Resolved Date": "13/10/2025 11:29",
+                            "Work Type": "Strategic Work",
+                            "Story Points": 2,
+                            "Request Type": "Insights",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Booking Efficiency Summary Reporting - Q3-Q4",
+                            "Requestor": "Operations",
+                            "Created Date": "13/10/2025 08:45",
+                            "Resolved Date": "13/10/2025 09:14",
+                            "Work Type": "Strategic Work",
+                            "Story Points": 1,
+                            "Request Type": "Manual Report",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Add Source to Invoice Automation Insights",
+                            "Requestor": "Finance Product",
+                            "Created Date": "06/10/2025 12:33",
+                            "Resolved Date": "09/10/2025 17:15",
+                            "Work Type": "Strategic Work",
+                            "Story Points": 2,
+                            "Request Type": "Report Amendment",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Unable to change payment method",
+                            "Requestor": "Transactional Processing",
+                            "Created Date": "09/10/2025 10:53",
+                            "Resolved Date": "09/10/2025 11:36",
+                            "Work Type": "BAU",
+                            "Story Points": 0.5,
+                            "Request Type": "Bug Investigation",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Combine API Success Reporting",
+                            "Requestor": "Operations",
+                            "Created Date": "03/09/2025 10:12",
+                            "Resolved Date": "09/10/2025 09:50",
+                            "Work Type": "Strategic Work",
+                            "Story Points": 3,
+                            "Request Type": "New Report",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Sales Efficencies - Benefit Reporting",
+                            "Requestor": "Operations",
+                            "Created Date": "03/10/2025 09:20",
+                            "Resolved Date": "09/10/2025 09:50",
+                            "Work Type": "Strategic Work",
+                            "Story Points": 2,
+                            "Request Type": "Manual Report",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "RITM0021443 - SSRS Year End Report Changes",
+                            "Requestor": "Compliance Team",
+                            "Created Date": "13/09/2025 17:26",
+                            "Resolved Date": "08/10/2025 09:00",
+                            "Work Type": "Operational Essential",
+                            "Story Points": 0,
+                            "Request Type": "Report Amendment",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Remove Invoice Dupe Stats ",
+                            "Requestor": "Finance Product",
+                            "Created Date": "01/10/2025 09:38",
+                            "Resolved Date": "03/10/2025 10:41",
+                            "Work Type": "BAU",
+                            "Story Points": 0,
+                            "Request Type": "Report Amendment",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Weighted Exchange Rate Bug",
+                            "Requestor": "Transactional Processing",
+                            "Created Date": "05/03/2025 16:31",
+                            "Resolved Date": "02/10/2025 19:56",
+                            "Work Type": "BAU",
+                            "Story Points": 0,
+                            "Request Type": "Bug Investigation",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "Paywise - Add Middle Names to Improve Matching",
+                            "Requestor": "Transactional Processing",
+                            "Created Date": "02/10/2025 19:54",
+                            "Resolved Date": "02/10/2025 19:56",
+                            "Work Type": "BAU",
+                            "Story Points": 0,
+                            "Request Type": "Bug Investigation",
+                            "is_key_release": false
+                        },
+                        {
+                            "Summary": "FP&A Monthly Report - Sep 25",
+                            "Requestor": "FP&A",
+                            "Created Date": "12/09/2025 18:14",
+                            "Resolved Date": "01/10/2025 15:20",
+                            "Work Type": "BAU",
+                            "Story Points": 0,
+                            "Request Type": "Manual Report",
+                            "is_key_release": false
+                        }
+                    ]
+                },
+                "priorities": [
+                    {
+                        "Company Goal": "Cross-functional / Finance Specific",
+                        "Working Capital": {
+                            "name": "Pipeline Reporting - Finalise Launch of V1 Pipeline Monies, cash flow reporitng to follow in a later month.",
+                            "description": "Pipeline Reporting - Finalise Launch of V1 Pipeline Monies, cash flow reporitng to follow in a later month.",
+                            "team": "Data & BI",
+                            "isTopFocus": true
+                        },
+                        "Overhead Automation": null,
+                        "Report Automation": null,
+                        "People Focus": null,
+                        "Margin Control": null,
+                        "Efficiency Enhancement": null
+                    },
+                    {
+                        "Company Goal": "Gain Efficiency",
+                        "Working Capital": null,
+                        "Overhead Automation": null,
+                        "Report Automation": {
+                            "name": "Invoice Uploads Report - Collab Work Group Established Weekly - Investigation Underway",
+                            "description": "Invoice Uploads Report - Collab Work Group Established Weekly - Investigation Underway",
+                            "team": "Finance"
+                        },
+                        "People Focus": null,
+                        "Margin Control": null,
+                        "Efficiency Enhancement": {
+                            "name": "Booking Efficencies - Establish AutoPay Dashboards and aid the discovery of booking effiencies, via reporting and improvement suggestion.",
+                            "team": "Booking & Fulfilment"
+                        }
+                    },
+                    {
+                        "Company Goal": "Increase Margin",
+                        "Working Capital": null,
+                        "Overhead Automation": null,
+                        "Report Automation": null,
+                        "People Focus": null,
+                        "Margin Control": null,
+                        "Efficiency Enhancement": null
+                    },
+                    {
+                        "Company Goal": "Go Global",
+                        "Working Capital": null,
+                        "Overhead Automation": null,
+                        "Report Automation": null,
+                        "People Focus": null,
+                        "Margin Control": null,
+                        "Efficiency Enhancement": null
+                    },
+                    {
+                        "Company Goal": "Growing Online",
+                        "Working Capital": null,
+                        "Overhead Automation": null,
+                        "Report Automation": null,
+                        "People Focus": null,
+                        "Margin Control": null,
+                        "Efficiency Enhancement": null
+                    },
+                    {
+                        "Company Goal": "Put People First",
+                        "Working Capital": null,
+                        "Overhead Automation": null,
+                        "Report Automation": {
+                            "name": "Tableau Organisation - Conduct an exercise to clean up tableau enviorment and document finance use cases",
+                            "description": "Tableau Organisation - Conduct an exercise to clean up tableau enviorment and document finance use cases",
+                            "team": "Finance"
+                        },
+                        "People Focus": null,
+                        "Margin Control": null,
+                        "Efficiency Enhancement": null
+                    },
+                    {
+                        "Company Goal": "Build Loyalty",
+                        "Working Capital": null,
+                        "Overhead Automation": null,
+                        "Report Automation": null,
+                        "People Focus": null,
+                        "Margin Control": null,
+                        "Efficiency Enhancement": null
+                    }
+                ]
+            },
             "SEP2025": { // LATEST MONTH (OFFLINE STRATEGY)
                 reportDate: "September 2025",
                 kpis: { strategicTactical: "58%", avgCompletion: "29", totalReleases: "28", activeBlockers: "4" },
@@ -358,83 +867,11 @@
                     {"status": "Selected for Development", "items": [{"key": "FCP-441", "summary": "Add MonthToMonth Summary of Invoice Automation", "created": "11/08/2025"}, {"key": "FCP-470", "summary": "NULL Brand Codes for Directs", "created": "26/08/2025"}, {"key": "FCP-479", "summary": "Follow up on travel ledger outbounding 2.0", "created": "28/08/2025"}, {"key": "FCP-469", "summary": "Finance Capability Assesment", "created": "26/08/2025"}]},
                     {"status": "Planned", "items": [{"key": "FCP-475", "summary": "TIG Travel Ledger Launch", "created": "27/08/2025"}, {"key": "FCP-472", "summary": "Monthly Pipeline Extract Aug", "created": "27/08/2025"}, {"key": "FCP-414", "summary": "Native Invoice Value Vary Between DM and DWH", "created": "17/07/2025"}]}
                 ]
-            },
-            "JUL2025": { // JULY MONTH
-                reportDate: "July 2025",
-                kpis: { strategicTactical: "19%", avgCompletion: "21", totalReleases: "31", activeBlockers: "1" },
-                kpiAvgCompletionUnit: "days",
-                nextMonthHeader: "August 2025",
-                prioritiesSummary: "These are the key objectives the team will focus on in the upcoming month to drive strategic progress and deliver value, aligned with our overarching company and finance goals. This consolidated view provides a quick understanding of our strategic focus. Hover over a priority name for more details.",
-                navLinksHTML: `
-                    <ul class="flex flex-wrap border-b border-slate-200">
-                        <li><a href="#overview" class="nav-link active text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Overview</a></li>
-                        <li><a href="#workload" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Workload Deep Dive</a></li>
-                        <li><a href="#strategy" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Strategic Progression</a></li>
-                        <li><a href="#releases" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Product Releases</a></li>
-                        <li><a href="#priorities" class="nav-link text-sm md:text-base font-semibold p-4 inline-block border-b-2 border-transparent hover:bg-slate-50">Priorities</a></li>
-                    </ul>
-                `,
-                prioritiesContentHTML: `
-                    <div>
-                        <h2 class="text-2xl font-bold text-slate-900 mb-2" id="priorities-header">Priorities for the Coming Period (August 2025)</h2>
-                        <p class="text-slate-600 max-w-3xl font-semibold" id="priorities-summary">These are the key objectives the team will focus on in the upcoming month to drive strategic progress and deliver value, aligned with our overarching company and finance goals. This consolidated view provides a quick understanding of our strategic focus. Hover over a priority name for more details.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 overflow-x-auto">
-                        <table class="w-full text-left border-collapse priority-table">
-                            <thead>
-                                <tr>
-                                    <th class="w-[15%]">Company Goal</th>
-                                    <th class="w-[14%]">Working Capital</th>
-                                    <th class="w-[14%]">Overhead Automation</th>
-                                    <th class="w-[14%]">Report Automation</th>
-                                    <th class="w-[14%]">People Focus</th>
-                                    <th class="w-[14%]">Margin Control</th>
-                                    <th class="w-[14%]">Efficiency Enhancement</th>
-                                    <th class="w-[13%]">Team</th> 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                </tbody>
-                        </table>
-                    </div>
-                `,
-                strategicProgression: [
-                    { name: "Auto Pay", current: 84, previous: 84, lastYear: 17, type: "percentage", improvement: "Remained at 84% following last month." },
-                    { name: "Auto Invoice", current: 28, previous: 29, lastYear: 32, type: "percentage", improvement: "Moved from 29% last month to 28% this month (32% this month last year)." },
-                    { name: "Auto Invoice @ Completion", current: 40, previous: 41, lastYear: null, type: "percentage", improvement: "Moved from 41% last month to 40% this month." },
-                    { name: "Travel Ledger Processed Volume", current: 48, previous: 64, lastYear: null, type: "percentage", improvement: "Down to 48% from 64% in June and 71% in May due to missed statements." }
-                ],
-                achievements: [
-                    { summary: "Streamlined Ski Supplier Outbounding & Travel Ledger Efficiency", description: "Collaborated with Ski to outbound all suppliers, establishing an efficient tracking process, and work with Travel Ledger to identify efficiency gaps for future improvements." },
-                    { summary: "Invoice Automation Process Adapted for Late Bookings", description: "Adapted the invoice automation process to handle late evening bookings; deployment approval is pending." },
-                    { summary: "New Tableau Data Source for Supplier Invoices", description: "Established a new Tableau data source for supplier invoice detail, leading to the closure of several related tickets." },
-                    { summary: "Paywise Reporting Support Plan Agreed", description: "A two-sprint period has been agreed upon with Data & BI to address support needs for Paywise reporting." }
-                ],
-                blockers: [
-                    { type: "❗", title: "Dependency: Critical Path on Dan Clay", description: "Multiple workstreams are critically dependent on Dan Clay, including efforts outside of standard project deliverables." },
-                    { type: "❓", title: "Decision Required: Align Finance Goals with Company Strategy", description: "A clear definition of finance-specific goals is needed to ensure alignment with overall company strategy for Q4 and 2026, enabling the finalization and agreement of a development roadmap with IT. This decision requires input from Lorna Vincent and Antony Fulcher." },
-                    { type: "⚠️", title: "Risk Mitigation: August Focus on Strategic Work", description: "A key risk for August is that both development teams are committing to a wide spread of work with substantial value. It is crucial to ensure that the Finance Product team can maintain its focus on strategic initiatives." }
-                ],
-                jira: {
-                    workloadLabels: ["BAU", "Strategic Work", "Non Strategic Project", "Operational Essential"], workloadCounts: [15, 3, 3, 3],
-                    requestorLabels: ["Transactional Processing", "Reconciliation", "None", "Lorna Vincent", "Compliance", "Customer Care", "Sales"], requestorCounts: [8, 5, 4, 3, 2, 1, 1],
-                    releaseTypeLabels: ["Bug Investigation", "New Report", "New Data Source", "Manual Report", "Insights", "Report Amendment", "Maintenance", "Support"], releaseTypeCounts: [6, 7, 2, 4, 2, 3, 1, 1],
-                    releases: [{"Summary": "INC0064222 - Duplicated Invoice Load", "Requestor": "Transactional Processing", "Created Date": "02/07/2025", "Resolved Date": "08/07/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "SKI TM Customer Payments", "Requestor": "Transactional Processing", "Created Date": "04/06/2025", "Resolved Date": "17/06/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "INC0063787 - Duplicated Records in DWH ETL from dbo.invoice", "Requestor": "Transactional Processing", "Created Date": "03/06/2025", "Resolved Date": "18/06/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Customer are incorrectly being charged fees on their payment plans", "Requestor": "Transactional Processing", "Created Date": "07/05/2025", "Resolved Date": "21/07/2025", "Work Type": "BAU", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "Document Travel Ledger Auto Pay Fields", "Requestor": "None", "Created Date": "15/07/2025", "Resolved Date": "24/07/2025", "Work Type": "BAU", "Request Type": "Insights", "is_key_release": false}, {"Summary": "Create Pre-Paywise Enett Excel with Supplier Reference and Booking ID", "Requestor": "None", "Created Date": "22/05/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "Insights", "is_key_release": false}, {"Summary": "Aldo Zilli Group Query", "Requestor": "Reconciliation", "Created Date": "14/07/2025", "Resolved Date": "21/07/2025", "Work Type": "BAU", "Request Type": "Support", "is_key_release": false}, {"Summary": "Stop FTP imports of Enett data to SupplierPayment.dbo.payment_gold", "Requestor": "None", "Created Date": "25/06/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "Maintenance", "is_key_release": false}, {"Summary": "Tracey - Expected Commissions Report Rerun", "Requestor": "Reconciliation", "Created Date": "01/07/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Create Tableau Data Source for Active Invoice Values By Supplier Reference", "Requestor": "Transactional Processing", "Created Date": "01/04/2025", "Resolved Date": "24/06/2025", "Work Type": "BAU", "Request Type": "New Data Source", "is_key_release": true}, {"Summary": "Bonus Commission Report", "Requestor": "Reconciliation", "Created Date": "23/07/2025", "Resolved Date": "23/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": true}, {"Summary": "Protected Commissions report", "Requestor": "Reconciliation", "Created Date": "22/07/2025", "Resolved Date": "22/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": true}, {"Summary": "Accounts Self-Bill V2", "Requestor": "Transactional Processing", "Created Date": "23/07/2025", "Resolved Date": "24/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": true}, {"Summary": "Expected Commissions Report - Self-Service", "Requestor": "Reconciliation", "Created Date": "15/07/2025", "Resolved Date": "16/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Setup Sustainable VAT/Commission Errors Report - Invoicing", "Requestor": "Transactional Processing", "Created Date": "23/06/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Failed Tokenised Payments Report", "Requestor": "Customer Care", "Created Date": "20/05/2025", "Resolved Date": "11/06/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Create Multi-Currency Bookings Report", "Requestor": "Reconciliation", "Created Date": "04/04/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "Build a report to track commission refunds from Virgin Voyages", "Requestor": "Reconciliation", "Created Date": "26/03/2025", "Resolved Date": "02/07/2025", "Work Type": "BAU", "Request Type": "New Report", "is_key_release": false}, {"Summary": "QA Update Form - Scoring Issue", "Requestor": "Sales", "Created Date": "23/06/2025", "Resolved Date": "24/06/2025", "Work Type": "BAU", "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Invoicing OT - KPI Workbook Support", "Requestor": "Transactional Processing", "Created Date": "10/06/2025", "Resolved Date": "11/06/2025", "Work Type": "BAU", "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Build Dynamic Pending Tab in INR Report with Weekly Breakdown and Stats Summary", "Requestor": "Transactional Processing", "Created Date": "16/05/2025", "Resolved Date": "24/06/2025", "Work Type": "BAU", "Request Type": "Report Amendment", "is_key_release": false}, {"Summary": "Reconcile and Correct RCL Group ID: 2642058", "Requestor": "Reconciliation", "Created Date": "26/06/2025", "Resolved Date": "26/06/2025", "Work Type": "BAU", "Story Points": 0, "Request Type": "Support", "is_key_release": false}, {"Summary": "Share Tracker Update with Travel Ledger", "Requestor": "None", "Created Date": "27/06/2025", "Resolved Date": "15/07/2025", "Work Type": "Non Strategic Project", "Request Type": "Insights", "is_key_release": false}, {"Summary": "Provide Cashflow Report Update - JUN 25", "Requestor": "Lorna Vincent", "Created Date": "08/07/2025", "Resolved Date": "09/07/2025", "Work Type": "Non Strategic Project", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Doddle Support Ticket - Payment Search Slowness", "Requestor": "Transactional Processing", "Created Date": "22/04/2025", "Resolved Date": "27/06/2025", "Work Type": "Operational Essential", "Request Type": "Bug Investigation", "is_key_release": false}, {"Summary": "CAA RCN Return - Monthly", "Requestor": "Compliance", "Created Date": "30/06/2025", "Resolved Date": "14/07/2025", "Work Type": "Operational Essential", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Quarterly Stats - LV 160725", "Requestor": "Lorna Vincent", "Created Date": "16/07/2025", "Resolved Date": "16/07/2025", "Work Type": "Strategic Work", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Board Cashflow Report - 08 Jul 25", "Requestor": "Lorna Vincent", "Created Date": "08/07/2025", "Resolved Date": "09/07/2025", "Work Type": "Strategic Work", "Request Type": "Manual Report", "is_key_release": false}, {"Summary": "Estabish Tableau Data Source for Finance KPI Workbook", "Requestor": "None", "Created Date": "11/06/2025", "Resolved Date": "11/06/2025", "Work Type": "Strategic Work", "Request Type": "New Data Source", "is_key_release": true}]
-                },
-                priorities: [
-                    { "Company Goal": "Cross-functional / Finance Specific", "Working Capital": { "name": "Pipeline Monies Reporting", "description": "Finalize Pipeline Monies Reporting: Ensure accurate reporting of pipeline monies position by finalizing dataset testing and report development.", "team": "Data & BI", "isTopFocus": true }, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null },
-                    { "Company Goal": "Gain Efficiency", "Working Capital": null, "Overhead Automation": [ { "name": "Late Booking Invoicing", "description": "Automate Late Evening Booking Invoicing: Deploy July's work to enable automatic invoicing for late evening bookings.", "team": "Finance" }, { "name": "Offline Ancillary Automation", "description": "Offline Ancillary Invoice Automation: Build a process to capture API responses for ancillaries that were booked online, ensuring we can still automatically invoice.", "team": "Finance" } ], "Report Automation": { "name": "Cost-to-Serve Dashboard", "description": "Establish Finance Cost-to-Serve Dashboard: Build an automated dashboard to provide a tangible metric to monitor our progress with our efficiency enhancements.", "team": "Finance" }, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": { "name": "Paywise Data Enhance", "description": "Enhance Paywise Data & Performance: Improve Paywise data availability, reporting view speed, and content for users.", "team": "Data & BI" } },
-                    { "Company Goal": "Go Global", "Working Capital": null, "Overhead Automation": { "name": "Booking Success Rate", "description": "Improve Booking Success Rate: Finalize reporting to identify reasons for failed/unattempted bookings, aiming to increase API booking percentage and invoice automation.", "team": "Finance" }, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null },
-                    { "Company Goal": "Growing Online", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null },
-                    { "Company Goal": "Put People First", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": { "name": "Launch Staff Circle", "description": "Launch Staff Circle within Finance Product: Initiate the Staff Circle program to prioritize people-centric initiatives within the team.", "team": "Finance" }, "Margin Control": null, "Efficiency Enhancement": null },
-                    { "Company Goal": "Increase Margin", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": { "name": "Override Commissions Report", "description": "Report On-Invoice Override Commissions: Develop reports to highlight instances where on-invoice override commissions were not loaded, to minimize dilution and identify potential overpayments.", "team": "Finance" }, "Efficiency Enhancement": null },
-                    { "Company Goal": "Build Loyalty", "Working Capital": null, "Overhead Automation": null, "Report Automation": null, "People Focus": null, "Margin Control": null, "Efficiency Enhancement": null }
-                ]
             }
         };
 
         // Determine the order of months (Latest first for default)
-        const MONTH_ORDER = ["SEP2025", "AUG2025", "JUL2025"];
+        const MONTH_ORDER = ["OCT2025", "SEP2025", "AUG2025", "JUL2025"];
         const DEFAULT_MONTH = MONTH_ORDER[0];
 
         // Global variables to store Chart instances for updates
@@ -851,5 +1288,6 @@
             });
         });
     </script>
+    <div id="custom-tooltip" class="hidden"></div>
 </body>
 </html>
